@@ -132,12 +132,10 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Issue {\n");
-            sb.Append("  Code: ").Append(Code).Append("\n");
-            sb.Append("  Message: ").Append(Message).Append("\n");
-            sb.Append("  Severity: ").Append(Severity).Append("\n");
-            sb.Append("  AttributeNames: ").Append(AttributeNames).Append("\n");
-            sb.Append("}\n");
+            sb.Append("  Code: ").Append(Code).Append(Environment.NewLine);
+            sb.Append("  Message: ").Append(Message).Append(Environment.NewLine);
+            sb.Append("  Severity: ").Append(Severity).Append(Environment.NewLine);
+            sb.Append("  AttributeNames: ").Append(string.Join(",", AttributeNames));
             return sb.ToString();
         }
   

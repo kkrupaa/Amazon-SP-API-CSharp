@@ -60,7 +60,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
         /// Three-digit currency code. In ISO 4217 format.
         /// </summary>
         /// <value>Three-digit currency code. In ISO 4217 format.</value>
-        [DataMember(Name="currencyCode", EmitDefaultValue=false)]
+        [DataMember(Name="currency", EmitDefaultValue=false)]
         public string CurrencyCode { get; set; }
 
         /// <summary>
