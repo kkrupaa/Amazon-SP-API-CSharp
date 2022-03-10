@@ -12,6 +12,7 @@ namespace FikaAmazonAPI
         public SolicitationService Solicitations => this._Solicitations ?? throw _NoCredentials;
         public FinancialService Financial => this._Financials ?? throw _NoCredentials;
         public CatalogItemService CatalogItem => this._CatalogItems ?? throw _NoCredentials;
+        public CatalogItem20201201Service CatalogItem20201201 => this._CatalogItem20201201 ?? throw _NoCredentials;
         public ProductPricingService ProductPricing => this._ProductPricing ?? throw _NoCredentials;
         public AuthorizationService Authorization => this._Authorization ?? throw _NoCredentials;
         public AplusContentService AplusContent => this._AplusContent ?? throw _NoCredentials;
@@ -45,6 +46,7 @@ namespace FikaAmazonAPI
         private SolicitationService _Solicitations { get; set; }
         private FinancialService _Financials { get; set; }
         private CatalogItemService _CatalogItems { get; set; }
+        private CatalogItem20201201Service _CatalogItem20201201 { get; set; }
         private ProductPricingService _ProductPricing { get; set; }
         private AuthorizationService _Authorization { get; set; }
         private AplusContentService _AplusContent { get; set; }
@@ -99,6 +101,7 @@ namespace FikaAmazonAPI
             this._Solicitations = new SolicitationService(this.Credentials);
             this._Financials = new FinancialService(this.Credentials);
             this._CatalogItems = new CatalogItemService(this.Credentials);
+            this._CatalogItem20201201 = new CatalogItem20201201Service(this.Credentials);
             this._ProductPricing = new ProductPricingService(this.Credentials);
 
             this._FbaInbound = new FbaInboundService(this.Credentials);

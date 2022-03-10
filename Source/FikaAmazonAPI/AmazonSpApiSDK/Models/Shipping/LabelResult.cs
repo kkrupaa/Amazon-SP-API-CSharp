@@ -29,7 +29,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// <param name="ContainerReferenceId">ContainerReferenceId.</param>
         /// <param name="TrackingId">The tracking identifier assigned to the container..</param>
         /// <param name="Label">Label.</param>
-        public LabelResult(ContainerReferenceId ContainerReferenceId = default(ContainerReferenceId), string TrackingId = default(string), Label Label = default(Label))
+        public LabelResult(string ContainerReferenceId = default(string), string TrackingId = default(string), Label Label = default(Label))
         {
             this.ContainerReferenceId = ContainerReferenceId;
             this.TrackingId = TrackingId;
@@ -40,7 +40,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// Gets or Sets ContainerReferenceId
         /// </summary>
         [DataMember(Name = "containerReferenceId", EmitDefaultValue = false)]
-        public ContainerReferenceId ContainerReferenceId { get; set; }
+        public string ContainerReferenceId { get; set; }
 
         /// <summary>
         /// The tracking identifier assigned to the container.

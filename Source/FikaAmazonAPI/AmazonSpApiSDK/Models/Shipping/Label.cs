@@ -28,7 +28,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// </summary>
         /// <param name="LabelStream">LabelStream.</param>
         /// <param name="LabelSpecification">LabelSpecification.</param>
-        public Label(LabelStream LabelStream = default(LabelStream), LabelSpecification LabelSpecification = default(LabelSpecification))
+        public Label(string LabelStream = default(string), LabelSpecification LabelSpecification = default(LabelSpecification))
         {
             this.LabelStream = LabelStream;
             this.LabelSpecification = LabelSpecification;
@@ -38,7 +38,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// Gets or Sets LabelStream
         /// </summary>
         [DataMember(Name = "labelStream", EmitDefaultValue = false)]
-        public LabelStream LabelStream { get; set; }
+        public string LabelStream { get; set; }
 
         /// <summary>
         /// Gets or Sets LabelSpecification

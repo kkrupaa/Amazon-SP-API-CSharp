@@ -14,12 +14,12 @@ namespace FikaAmazonAPI.Services
 
 
 
-        public Shipment CreateShipment(CreateShipmentRequest parameterGetPricing) =>
+        public CreateShipmentResult CreateShipment(CreateShipmentRequest parameterGetPricing) =>
             Task.Run(() => CreateShipmentAsync(parameterGetPricing)).ConfigureAwait(false).GetAwaiter().GetResult();
-        public async Task<Shipment> CreateShipmentAsync(CreateShipmentRequest parameterGetPricing)
+        public async Task<CreateShipmentResult> CreateShipmentAsync(CreateShipmentRequest parameterGetPricing)
         {
             await CreateAuthorizedRequestAsync(ShippingApiUrls.CreateShipment, RestSharp.Method.POST, postJsonObj: parameterGetPricing);
-            var response = await ExecuteRequestAsync<GetShipmentResponse>(RateLimitType.Shipping_CreateShipment);
+            var response = await ExecuteRequestAsync<CreateShipmentResponse>(RateLimitType.Shipping_CreateShipment);
             if (response != null && response.Payload != null)
                 return response.Payload;
             return null;

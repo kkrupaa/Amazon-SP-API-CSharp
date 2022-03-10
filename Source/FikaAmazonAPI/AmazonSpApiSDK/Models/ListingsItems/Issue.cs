@@ -135,7 +135,8 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
             sb.Append("  Code: ").Append(Code).Append(Environment.NewLine);
             sb.Append("  Message: ").Append(Message).Append(Environment.NewLine);
             sb.Append("  Severity: ").Append(Severity).Append(Environment.NewLine);
-            sb.Append("  AttributeNames: ").Append(string.Join(",", AttributeNames));
+            if (AttributeNames != null)
+                sb.Append("  AttributeNames: ").Append(string.Join(",", AttributeNames));
             return sb.ToString();
         }
   
