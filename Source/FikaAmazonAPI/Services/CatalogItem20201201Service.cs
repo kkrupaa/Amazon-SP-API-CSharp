@@ -40,13 +40,6 @@ namespace FikaAmazonAPI.Services
                 searchCatalogItemsParameters.marketplaceIds.Add(AmazonCredential.MarketPlace.ID);
             }
 
-            if (searchCatalogItemsParameters.pageSize == null)
-            {
-                searchCatalogItemsParameters.pageSize = 10;
-            }
-
-
-
             searchCatalogItemsParameters.Check();
             var queryParameters = searchCatalogItemsParameters.getParameters();
             await CreateAuthorizedRequestAsync(CategoryApiUrls.SearchCatalogItems, RestSharp.Method.GET, queryParameters: queryParameters);

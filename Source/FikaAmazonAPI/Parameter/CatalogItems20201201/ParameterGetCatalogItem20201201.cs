@@ -19,7 +19,6 @@ namespace FikaAmazonAPI.Parameter.CatalogItems20201201
             if (includedData is null)
             {
                 includedData = new List<Constants.IncludedData>();
-                includedData.Add(Constants.IncludedData.summaries);
             }
             if (includedData.Count == 0)
                 includedData.Add(Constants.IncludedData.summaries);
