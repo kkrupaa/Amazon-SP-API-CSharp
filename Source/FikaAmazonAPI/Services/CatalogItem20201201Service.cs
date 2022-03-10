@@ -27,5 +27,34 @@ namespace FikaAmazonAPI.Services
 
             return null;
         }
+
+        public async Task<ItemSearchResults> SearchCatalogItems(ParameterSearchCatalogItems searchCatalogItemsParameters)
+        {
+            if (searchCatalogItemsParameters.marketplaceIds == null)
+            {
+                searchCatalogItemsParameters.marketplaceIds = new List<string>();
+            }
+
+            if (searchCatalogItemsParameters.marketplaceIds.Count == 0)
+            {
+                searchCatalogItemsParameters.marketplaceIds.Add(AmazonCredential.MarketPlace.ID);
+            }
+
+            if (searchCatalogItemsParameters.pageSize == null)
+            {
+                searchCatalogItemsParameters.pageSize = 10;
+            }
+
+
+
+            searchCatalogItemsParameters.Check();
+            var queryParameters = searchCatalogItemsParameters.getParameters();
+            await CreateAuthorizedRequestAsync(CategoryApiUrls.SearchCatalogItems, RestSharp.Method.GET, queryParameters: queryParameters);
+            var response = await ExecuteRequestAsync<ItemSearchResults>(RateLimitType.CatalogItems20201201_SearchCatalogItems);
+            if (response != null)
+                return response;
+
+            return null;
+        }
     }
 }

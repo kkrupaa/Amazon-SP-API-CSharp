@@ -33,7 +33,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.CatalogItems20201201
         /// Initializes a new instance of the <see cref="ItemSearchResults" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ItemSearchResults() { }
+        public ItemSearchResults() { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemSearchResults" /> class.
         /// </summary>

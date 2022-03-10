@@ -14,7 +14,7 @@ namespace FikaAmazonAPI.Parameter.CatalogItems20201201
         {
             if (marketplaceIds == null || !marketplaceIds.Any())
             {
-                throw new InvalidDataException("MarketplaceIds is a required property for ParameterPutListingItem and cannot be null");
+                throw new InvalidDataException("MarketplaceIds is a required property for ParameterGetCatalogItem20201201 and cannot be null");
             }
             if (includedData is null)
             {
