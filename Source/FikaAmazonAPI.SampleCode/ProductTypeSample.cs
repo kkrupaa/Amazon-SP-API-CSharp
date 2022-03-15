@@ -1,4 +1,6 @@
-﻿using static FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems.ListingsItemPutRequest;
+﻿using System;
+using System.Collections.Generic;
+using static FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems.ListingsItemPutRequest;
 
 namespace FikaAmazonAPI.SampleCode
 {
