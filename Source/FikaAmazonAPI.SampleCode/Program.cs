@@ -7,6 +7,7 @@ using FikaAmazonAPI.Parameter.Order;
 using FikaAmazonAPI.ReportGeneration;
 using FikaAmazonAPI.Utils;
 using Microsoft.Extensions.Configuration;
+using static FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems.ListingsItemPutRequest;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -38,6 +39,20 @@ namespace FikaAmazonAPI.SampleCode
                 IsActiveLimitRate = true
             });
 
+
+
+            var aha = amazonConnection.ProductType.SearchDefinitionsProductTypes(new Parameter.ProductTypes.SearchDefinitionsProductTypesParameter()
+            {
+                keywords = new List<string> { String.Empty },
+            });
+
+            var def = amazonConnection.ProductType.GetDefinitionsProductType(new Parameter.ProductTypes.GetDefinitionsProductTypeParameter()
+            {
+                productType = "PRODUCT",
+                requirements = RequirementsEnum.LISTING,
+                locale = AmazonSpApiSDK.Models.ProductTypes.LocaleEnum.en_US
+            });
+
             var result = amazonConnection.Restrictions.GetListingsRestrictions(new Parameter.Restrictions.ParameterGetListingsRestrictions
             {
                 asin = "B07GY3J99B",
@@ -54,7 +69,7 @@ namespace FikaAmazonAPI.SampleCode
                 sku = SKU,
                 listingsItemPutRequest = new ListingsItemPutRequest()
                 {
-                    productType = "LUGGAGE",
+                    productType = "PRODUCT",
                     requirements = Requirements.LISTING,
 
                     //Example from https://developer-docs.amazon.com/sp-api/docs/listings-items-api-v2020-09-01-use-case-guide
