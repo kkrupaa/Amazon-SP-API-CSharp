@@ -39,6 +39,17 @@ namespace FikaAmazonAPI.SampleCode
                 IsActiveLimitRate = true
             });
 
+            AmazonConnection codeAmazonConnection = new AmazonConnection(new AmazonCredential()
+            {
+                AccessKey = config.GetSection("MWSAmazonAPI:AccessKey").Value,
+                SecretKey = config.GetSection("MWSAmazonAPI:SecretKey").Value,
+                RoleArn = config.GetSection("MWSAmazonAPI:RoleArn").Value,
+                ClientId = config.GetSection("MWSAmazonAPI:ClientId").Value,
+                ClientSecret = config.GetSection("MWSAmazonAPI:ClientSecret").Value,
+                MarketPlace = MarketPlace.GetMarketPlaceByID(config.GetSection("MWSAmazonAPI:MarketPlaceID").Value),
+                IsActiveLimitRate = true
+            });
+
 
 
             var aha = amazonConnection.ProductType.SearchDefinitionsProductTypes(new Parameter.ProductTypes.SearchDefinitionsProductTypesParameter()
