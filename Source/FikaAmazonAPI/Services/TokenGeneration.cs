@@ -3,9 +3,13 @@ using Amazon.SecurityToken.Model;
 using FikaAmazonAPI.AmazonSpApiSDK.Models.Token;
 using FikaAmazonAPI.AmazonSpApiSDK.Runtime;
 using FikaAmazonAPI.Utils;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using static FikaAmazonAPI.AmazonSpApiSDK.Models.Token.CacheTokenData;
@@ -34,6 +38,31 @@ namespace FikaAmazonAPI.Services
             return accessToken;
         }
 
+        public static async Task<TokenResponse> GetAccessTokenFromCodeAsync(string ClientId, string ClientSecret, string code, string appRedirectUri)
+        {
+            string data = string.Empty;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://api.amazon.com");
+                var byteArray = Encoding.ASCII.GetBytes($"{ClientId}:{ClientSecret}");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
+                Dictionary<string, string> items = new Dictionary<string, string>();
+                items.Add("grant_type", "client_credentials");
+                items.Add("scope", ScopeConstants.ScopeMigrationAPI);
+                items.Add("client_id", ClientId);
+                items.Add("client_secret", ClientSecret);
+                items.Add("code", code);
+                items.Add("redirect_uri", appRedirectUri);
+
+                FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(items);
+                var rs = client.PostAsync("/auth/o2/token", formUrlEncodedContent).Result;
+                data = await rs.Content.ReadAsStringAsync();
+            }
+
+            return JsonConvert.DeserializeObject<TokenResponse>(data);
+        }
 
         public static async Task<IRestRequest> SignWithSTSKeysAndSecurityTokenAsync(IRestRequest restRequest, string host, AmazonCredential amazonCredential)
         {
@@ -75,6 +104,7 @@ namespace FikaAmazonAPI.Services
 
             return new AWSSigV4Signer(dataToken.AWSAuthenticationCredential)
                             .Sign(restRequest, host);
+
         }
     }
 }
