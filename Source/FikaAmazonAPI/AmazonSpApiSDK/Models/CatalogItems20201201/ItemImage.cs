@@ -95,7 +95,15 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.CatalogItems20201201
             /// Enum SWCH for value: SWCH
             /// </summary>
             [EnumMember(Value = "SWCH")]
-            SWCH = 10
+            SWCH = 10,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum EGUS for value: EGUS
+            /// </summary>
+            [EnumMember(Value = "EGUS")]
+            EGUS = 11
         }
 
         /// <summary>
