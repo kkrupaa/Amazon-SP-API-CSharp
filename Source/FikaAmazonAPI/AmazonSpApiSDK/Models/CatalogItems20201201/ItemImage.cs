@@ -103,7 +103,120 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.CatalogItems20201201
             /// Enum EGUS for value: EGUS
             /// </summary>
             [EnumMember(Value = "EGUS")]
-            EGUS = 11
+            EGUS = 11,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum BACK for value: BACK
+            /// </summary>
+            [EnumMember(Value = "BACK")]
+            BACK = 12,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT12 for value: PT12
+            /// </summary>
+            [EnumMember(Value = "PT12")]
+            PT12 = 13,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT09 for value: PT09
+            /// </summary>
+            [EnumMember(Value = "PT09")]
+            PT09 = 14,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum FRNT for value: FRNT
+            /// </summary>
+            [EnumMember(Value = "FRNT")]
+            FRNT = 15,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT10 for value: PT10
+            /// </summary>
+            [EnumMember(Value = "PT10")]
+            PT10 = 16,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT11 for value: PT11
+            /// </summary>
+            [EnumMember(Value = "PT11")]
+            PT11 = 17,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT20 for value: PT20
+            /// </summary>
+            [EnumMember(Value = "PT20")]
+            PT20 = 18,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum TOPP for value: TOPP
+            /// </summary>
+            [EnumMember(Value = "TOPP")]
+            TOPP = 19,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT99 for value: PT99
+            /// </summary>
+            [EnumMember(Value = "PT99")]
+            PT99 = 20,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum LEFT for value: LEFT
+            /// </summary>
+            [EnumMember(Value = "LEFT")]
+            LEFT = 21,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum INGR for value: INGR
+            /// </summary>
+            [EnumMember(Value = "INGR")]
+            INGR = 22,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum IN01 for value: IN01
+            /// </summary>
+            [EnumMember(Value = "IN01")]
+            IN01 = 23,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum EEGL for value: EEGL
+            /// </summary>
+            [EnumMember(Value = "EEGL")]
+            EEGL = 24,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum BOTT for value: BOTT
+            /// </summary>
+            [EnumMember(Value = "BOTT")]
+            BOTT = 25,
+
         }
 
         /// <summary>

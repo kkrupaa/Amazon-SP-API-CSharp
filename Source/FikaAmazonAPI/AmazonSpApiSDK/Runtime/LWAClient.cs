@@ -79,11 +79,25 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
 
             try
             {
-                var response = await RestClient.ExecuteAsync(accessTokenRequest).ConfigureAwait(false);
-
-                if (!IsSuccessful(response))
+                IRestResponse response = null;
+                for (int i = 0; i < 5; i++)
                 {
-                    throw new IOException("Unsuccessful LWA token exchange", response.ErrorException);
+                    response = await RestClient.ExecuteAsync(accessTokenRequest).ConfigureAwait(false);
+
+                    if (!IsSuccessful(response))
+                    {
+                        if (i == 4)
+                        {
+                            throw new IOException("Unsuccessful LWA token exchange", response.ErrorException);
+                        }
+
+                        int ms = new Random().Next(100, 500);
+                        await Task.Delay(TimeSpan.FromMilliseconds(ms));
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 TokenResponse tokenService = new TokenResponse();
