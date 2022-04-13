@@ -91,7 +91,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
                             throw new IOException("Unsuccessful LWA token exchange", response.ErrorException);
                         }
 
-                        int ms = new Random().Next(100, 500);
+                        int ms = new Random().Next(100, 600);
                         await Task.Delay(TimeSpan.FromMilliseconds(ms));
                     }
                     else

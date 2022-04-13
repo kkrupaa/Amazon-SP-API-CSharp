@@ -217,6 +217,56 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.CatalogItems20201201
             [EnumMember(Value = "BOTT")]
             BOTT = 25,
 
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum SPIN for value: SPIN
+            /// </summary>
+            [EnumMember(Value = "SPIN")]
+            SPIN = 26,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum SIDE for value: SIDE
+            /// </summary>
+            [EnumMember(Value = "SIDE")]
+            SIDE = 27,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum RGHT for value: RGHT
+            /// </summary>
+            [EnumMember(Value = "RGHT")]
+            RGHT = 28,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT13 for value: PT13
+            /// </summary>
+            [EnumMember(Value = "PT13")]
+            PT13 = 29,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PT15 for value: PT15
+            /// </summary>
+            [EnumMember(Value = "PT15")]
+            PT15 = 30,
+
+            /// <summary>
+            /// UNDOCUMENTED!!!!!!
+            /// https://github.com/amzn/selling-partner-api-docs/blob/main/references/catalog-items-api/catalogItems_2020-12-01.md#variant
+            /// Enum PAIR for value: PAIR
+            /// </summary>
+            [EnumMember(Value = "PAIR")]
+            PAIR = 31,
+
+
+
         }
 
         /// <summary>
