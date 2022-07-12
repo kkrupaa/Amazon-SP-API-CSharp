@@ -187,15 +187,15 @@ namespace FikaAmazonAPI.Services
             return null;
         }
 
-        public GetPrepInstructionsResult GetLabels(ParameterGetLabels parameterGetLabels) =>
+        public LabelDownloadURL GetLabels(ParameterGetLabels parameterGetLabels) =>
             Task.Run(() => GetLabelsAsync(parameterGetLabels)).ConfigureAwait(false).GetAwaiter().GetResult();
 
-        public async Task<GetPrepInstructionsResult> GetLabelsAsync(ParameterGetLabels parameterGetLabels)
+        public async Task<LabelDownloadURL> GetLabelsAsync(ParameterGetLabels parameterGetLabels)
         {
             var parameter = parameterGetLabels.getParameters();
             await CreateAuthorizedRequestAsync(FulFillmentInboundApiUrls.GetLabels(parameterGetLabels.shipmentId), RestSharp.Method.GET, parameter);
 
-            var response = await ExecuteRequestAsync<GetPrepInstructionsResponse>(RateLimitType.FulFillmentInbound_GetLabels);
+            var response = await ExecuteRequestAsync<GetLabelsResponse>(RateLimitType.FulFillmentInbound_GetLabels);
             if (response != null && response.Payload != null)
                 return response.Payload;
             return null;
@@ -244,14 +244,49 @@ namespace FikaAmazonAPI.Services
                 return response.Payload;
             return null;
         }
-        public GetShipmentsResult GetShipmentItems(ParameterListReturnReasonCodes parameterShipmentItems) =>
+        public List<InboundShipmentItem> GetShipmentItems(ParameterGetShipmentItems parameterShipmentItems) =>
             Task.Run(() => GetShipmentItemsAsync(parameterShipmentItems)).ConfigureAwait(false).GetAwaiter().GetResult();
-        public async Task<GetShipmentsResult> GetShipmentItemsAsync(ParameterListReturnReasonCodes parameterShipmentItems)
+        public async Task<List<InboundShipmentItem>> GetShipmentItemsAsync(ParameterGetShipmentItems parameterShipmentItems)
         {
+            var shipmentItemList = new List<InboundShipmentItem>();
+
             var parameter = parameterShipmentItems.getParameters();
             await CreateAuthorizedRequestAsync(FulFillmentInboundApiUrls.GetShipmentItems, RestSharp.Method.GET, parameter);
 
-            var response = await ExecuteRequestAsync<GetShipmentsResponse>(RateLimitType.FulFillmentInbound_GetShipmentItems);
+            var response = await ExecuteRequestAsync<GetShipmentItemsResponse>(RateLimitType.FulFillmentInbound_GetShipmentItems);
+
+            var nextToken = response.Payload?.NextToken;
+            shipmentItemList = response.Payload?.ItemData;
+            int PageCount = 1;
+            while (!string.IsNullOrEmpty(nextToken))
+            {
+                var orderPayload = await GetShipmentItemsByNextTokenAsync(nextToken, parameterShipmentItems);
+                shipmentItemList.AddRange(orderPayload.ItemData);
+                nextToken = orderPayload.NextToken;
+
+                if (parameterShipmentItems.MaxNumberOfPages.HasValue)
+                {
+                    PageCount++;
+                    if (PageCount >= parameterShipmentItems.MaxNumberOfPages.Value)
+                        break;
+                }
+            }
+
+            return shipmentItemList;
+        }
+
+        public async Task<GetShipmentItemsResult> GetShipmentItemsByNextTokenAsync(string nextToken, ParameterGetShipmentItems parameterShipmentItems)
+        {
+            parameterShipmentItems.NextToken = nextToken;
+            parameterShipmentItems.QueryType = Constants.QueryType.NEXT_TOKEN;
+            parameterShipmentItems.LastUpdatedBefore = null;
+            parameterShipmentItems.LastUpdatedAfter = null;
+
+            var parameter = parameterShipmentItems.getParameters();
+            await CreateAuthorizedRequestAsync(FulFillmentInboundApiUrls.GetShipmentItems, RestSharp.Method.GET, parameter);
+
+            var response = await ExecuteRequestAsync<GetShipmentItemsResponse>(RateLimitType.FulFillmentInbound_GetShipmentItems);
+
             if (response != null && response.Payload != null)
                 return response.Payload;
             return null;

@@ -36,8 +36,89 @@ namespace FikaAmazonAPI.SampleCode
                 ClientSecret = config.GetSection("FikaAmazonAPI:ClientSecret").Value,
                 RefreshToken = config.GetSection("FikaAmazonAPI:RefreshToken").Value,
                 MarketPlace = MarketPlace.GetMarketPlaceByID(config.GetSection("FikaAmazonAPI:MarketPlaceID").Value),
-                IsActiveLimitRate = true
             });
+
+
+            FeedsSample feedsSample = new FeedsSample(amazonConnection);
+            //feedsSample.SubmitFeedOrderAcknowledgement();
+
+            var alllll = amazonConnection.ProductPricing.GetItemOffers(new Parameter.ProductPricing.ParameterGetItemOffers
+            {
+                Asin = "B00DLWONF2",
+                ItemCondition = ItemCondition.New,
+            });
+
+
+            //use this method automatically know if the report are RDT or not
+            var data2222 = amazonConnection.Reports.CreateReportAndDownloadFile(ReportTypes.GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_SHIPPING, DateTime.UtcNow.AddDays(-2), DateTime.UtcNow, null);
+
+            // OR USE this method to get the document and pass parameter isRestrictedReport = true in case the report will return  PII data
+
+            var data11111 = amazonConnection.Reports.GetReportDocument("50039018869997", true);
+
+
+
+
+
+
+
+            var GetCatalogItem202204 = await amazonConnection.CatalogItem.GetCatalogItem202204Async(new Parameter.CatalogItems.ParameterGetCatalogItem
+            {
+                ASIN = "B00JK2YANC",
+                includedData = new[] { IncludedData.attributes, IncludedData.salesRanks, IncludedData.summaries, IncludedData.productTypes, IncludedData.relationships, IncludedData.dimensions, IncludedData.identifiers, IncludedData.images }
+            });
+
+            var lissting = await amazonConnection.CatalogItem.SearchCatalogItems202204Async(new Parameter.CatalogItems.ParameterSearchCatalogItems202204
+            {
+                keywords = new[] { "vitamin c" },
+                includedData = new[] { IncludedData.attributes, IncludedData.salesRanks, IncludedData.summaries, IncludedData.productTypes, IncludedData.relationships, IncludedData.dimensions, IncludedData.identifiers, IncludedData.images }
+            });
+
+            //IncludedData.images, IncludedData.identifiers, IncludedData.productTypes, IncludedData.salesRanks, IncludedData.summaries, IncludedData.variations, IncludedData.vendorDetails
+
+
+            var test = amazonConnection.ProductPricing.GetItemOffers(new Parameter.ProductPricing.ParameterGetItemOffers()
+            {
+                Asin = "B000RTDUOW"
+            });
+
+            var result = amazonConnection.Financial.ListFinancialEventsAsync(new ParameterListFinancialEvents()
+            {
+                MaxNumberOfPages = 4,
+                PostedAfter = new DateTime(2021, 1, 1),
+                PostedBefore = new DateTime(2021, 5, 13)
+            });
+            DateTime startDate = new DateTime(2021, 10, 03);
+            var data = amazonConnection.Reports.CreateReportAndDownloadFile(ReportTypes.GET_FBA_REIMBURSEMENTS_DATA, startDate, null, null);
+
+
+            //DateTime startDate = new DateTime(2021, 10, 03);
+            var data2 = amazonConnection.Reports.CreateReportAndDownloadFile(ReportTypes.GET_EASYSHIP_DOCUMENTS, startDate, null, null);
+
+
+
+
+            for (int i = 0; i < 100; i++)
+            {
+                var plci = new FikaAmazonAPI.Parameter.CatalogItems.ParameterListCatalogItems();
+                plci.UPC = "079325772114";
+                plci.MarketplaceId = FikaAmazonAPI.Utils.MarketPlace.UnitedArabEmirates.ID;
+
+                var response22 = amazonConnection.CatalogItem.ListCatalogItems(plci);
+            }
+
+
+
+            var fbaSmallAndLightSample = new FbaSmallAndLightSample(amazonConnection);
+
+            ////await fbaSmallAndLightSample.GetSmallAndLightEnrollmentBySellerSKUAsync();
+            ////await fbaSmallAndLightSample.GetSmallAndLightEligibilityBySellerSKUAsync();
+            //await fbaSmallAndLightSample.GetSmallAndLightFeePreviewAsync();
+            //return;
+
+
+
+            var dataShipment = amazonConnection.FulFillmentInbound.GetShipmentItemsByShipmentId("FBA15D7NR6M9");
 
             AmazonConnection codeAmazonConnection = new AmazonConnection(new AmazonCredential()
             {
@@ -49,6 +130,8 @@ namespace FikaAmazonAPI.SampleCode
                 MarketPlace = MarketPlace.GetMarketPlaceByID(config.GetSection("MWSAmazonAPI:MarketPlaceID").Value),
                 IsActiveLimitRate = true
             });
+
+            CreateShipmentPlan(amazonConnection);
 
 
 
@@ -64,7 +147,7 @@ namespace FikaAmazonAPI.SampleCode
                 locale = AmazonSpApiSDK.Models.ProductTypes.LocaleEnum.en_US
             });
 
-            var result = amazonConnection.Restrictions.GetListingsRestrictions(new Parameter.Restrictions.ParameterGetListingsRestrictions
+            var result33 = amazonConnection.Restrictions.GetListingsRestrictions(new Parameter.Restrictions.ParameterGetListingsRestrictions
             {
                 asin = "B07GY3J99B",
                 sellerId = "A3J37AJU4O9RHK"
@@ -166,15 +249,7 @@ namespace FikaAmazonAPI.SampleCode
             var reimbursementsOrder = reportManager.GetReimbursementsOrder(180); //GET_FBA_REIMBURSEMENTS_DATA
             var feedbacks = reportManager.GetFeedbackFromDays(180); //GET_SELLER_FEEDBACK_DATA
 
-            while (true)
-            {
-                var data = amazonConnection.ProductPricing.GetItemOffers(new FikaAmazonAPI.Parameter.ProductPricing.ParameterGetItemOffers()
-                {
-                    ItemCondition = ItemCondition.New,
-                    MarketplaceId = MarketPlace.UnitedArabEmirates.ID,
-                    Asin = "B0010WW4XS"
-                });
-            }
+
 
 
 
@@ -269,6 +344,37 @@ namespace FikaAmazonAPI.SampleCode
 
 
             Console.ReadLine();
+
+        }
+
+
+        public static void CreateShipmentPlan(AmazonConnection amazonConnection)
+        {
+            FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.CreateInboundShipmentPlanRequest oCreateInboundShipmentPlanRequest = new FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.CreateInboundShipmentPlanRequest();
+
+            oCreateInboundShipmentPlanRequest.ShipToCountryCode = "AE";
+            oCreateInboundShipmentPlanRequest.LabelPrepPreference = FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.LabelPrepPreference.SELLERLABEL;
+
+
+            oCreateInboundShipmentPlanRequest.ShipFromAddress = new FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.Address();
+            oCreateInboundShipmentPlanRequest.ShipFromAddress.AddressLine1 = "Add";
+            oCreateInboundShipmentPlanRequest.ShipFromAddress.AddressLine2 = "ADD2";
+            oCreateInboundShipmentPlanRequest.ShipFromAddress.City = "City";
+            oCreateInboundShipmentPlanRequest.ShipFromAddress.CountryCode = "AE";
+            oCreateInboundShipmentPlanRequest.ShipFromAddress.PostalCode = "0000";
+            oCreateInboundShipmentPlanRequest.ShipFromAddress.Name = "Name";
+
+
+
+            oCreateInboundShipmentPlanRequest.InboundShipmentPlanRequestItems = new FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.InboundShipmentPlanRequestItemList();
+            FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.InboundShipmentPlanRequestItem oInboundShipmentPlanRequestItem = new FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.InboundShipmentPlanRequestItem();
+            oInboundShipmentPlanRequestItem.SellerSKU = "16118";
+            oInboundShipmentPlanRequestItem.ASIN = "B08BXH6234";
+            oInboundShipmentPlanRequestItem.Quantity = 1;
+            oInboundShipmentPlanRequestItem.Condition = FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.Condition.NewItem;
+
+            oCreateInboundShipmentPlanRequest.InboundShipmentPlanRequestItems.Add(oInboundShipmentPlanRequestItem);
+            FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound.CreateInboundShipmentPlanResult oResult = amazonConnection.FulFillmentInbound.CreateInboundShipmentPlan(oCreateInboundShipmentPlanRequest);
 
         }
 

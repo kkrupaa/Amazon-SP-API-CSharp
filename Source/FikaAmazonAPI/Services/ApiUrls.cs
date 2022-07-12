@@ -166,10 +166,10 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
         {
             private readonly static string _resourceBaseUrl = "/fba/smallAndLight/v1";
 
-            public static string GetSmallAndLightEnrollmentBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/enrollments/{sellerSKU}";
-            public static string PutSmallAndLightEnrollmentBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/enrollments/{sellerSKU}";
-            public static string DeleteSmallAndLightEnrollmentBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/enrollments/{sellerSKU}";
-            public static string GetSmallAndLightEligibilityBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/eligibilities/{sellerSKU}";
+            public static string GetSmallAndLightEnrollmentBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/enrollments/{Uri.EscapeDataString(sellerSKU)}";
+            public static string PutSmallAndLightEnrollmentBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/enrollments/{Uri.EscapeDataString(sellerSKU)}";
+            public static string DeleteSmallAndLightEnrollmentBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/enrollments/{Uri.EscapeDataString(sellerSKU)}";
+            public static string GetSmallAndLightEligibilityBySellerSKU(string sellerSKU) => $"{_resourceBaseUrl}/eligibilities/{Uri.EscapeDataString(sellerSKU)}";
             public static string GetSmallAndLightFeePreview
             {
                 get => $"{_resourceBaseUrl}/feePreviews";
@@ -255,7 +255,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
                 get => $"{_resourceBaseUrl}/marketplaceParticipations";
             }
         }
-        protected class ProductPricingApiUrls
+        internal class ProductPricingApiUrls
         {
             private readonly static string _resourceBaseUrl = "/products/pricing/v0";
             public static string GetPricing
@@ -267,8 +267,13 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
                 get => $"{_resourceBaseUrl}/competitivePrice";
             }
 
-            public static string GetListingOffers(string SellerSKU) => $"{_resourceBaseUrl}/listings/{Uri.EscapeDataString(SellerSKU)}/offers";
+            public static string GetListingOffersBySellerSku(string SellerSKU) => $"{_resourceBaseUrl}/listings/{Uri.EscapeDataString(SellerSKU)}/offers";
             public static string GetItemOffers(string Asin) => $"{_resourceBaseUrl}/items/{Asin}/offers";
+            public static string GetListingOffers(string sellerSKU) => $"{_resourceBaseUrl}/listings/{Uri.EscapeDataString(sellerSKU)}/offers";
+
+            public static string GetBatchItemOffers => $"/batches{_resourceBaseUrl}/itemOffers";
+
+            public static string GetBatchListingOffers => $"/batches{_resourceBaseUrl}/listingOffers";
 
         }
         protected class ProductTypeApiUrls
@@ -413,6 +418,8 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
             private readonly static string _resourceBaseUrl = "/products/fees/v0";
             public static string GetMyFeesEstimateForSKU(string SellerSKU) => $"{_resourceBaseUrl}/listings/{Uri.EscapeDataString(SellerSKU)}/feesEstimate";
             public static string GetMyFeesEstimateForASIN(string Asin) => $"{_resourceBaseUrl}/items/{Asin}/feesEstimate";
+
+            public static string GetMyFeesEstimate => $"{_resourceBaseUrl}/feesEstimate";
         }
         protected class TokenApiUrls
         {
@@ -474,6 +481,10 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
             private readonly static string _resourceBaseUrl = "/catalog/v0";
 
             private readonly static string _202012resourceBaseUrl = "/catalog/2020-12-01";
+
+            private readonly static string _202204resourceBaseUrl = "/catalog/2022-04-01";
+
+
             public static string ListCatalogItems
             {
                 get => $"{_resourceBaseUrl}/items";
@@ -486,6 +497,9 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
             public static string GetCatalogItem202012(string asin) => $"{_202012resourceBaseUrl}/items/{asin}";
 
             public static string SearchCatalogItems => $"{_202012resourceBaseUrl}/items";
+
+            public static string SearchCatalogItems202204 => $"{_202204resourceBaseUrl}/items";
+            public static string GetCatalogItem202204(string asin) => $"{_202204resourceBaseUrl}/items/{asin}";
         }
 
         protected class ListingsItemsApiUrls
