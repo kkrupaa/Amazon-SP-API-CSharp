@@ -30,6 +30,11 @@ namespace FikaAmazonAPI.Services
         protected string AmazonProductionUrl { get; set; }
         protected string AccessToken { get; set; }
         protected IList<KeyValuePair<string, string>> LastHeaders { get; set; }
+        public int Timeout
+        {
+            get { return RequestClient.Timeout; }   // get method
+            set { RequestClient.Timeout = value; }  // set method
+        }
         protected string ApiBaseUrl
         {
             get
