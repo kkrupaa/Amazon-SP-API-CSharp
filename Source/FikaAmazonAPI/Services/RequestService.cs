@@ -30,10 +30,13 @@ namespace FikaAmazonAPI.Services
         protected string AmazonProductionUrl { get; set; }
         protected string AccessToken { get; set; }
         protected IList<KeyValuePair<string, string>> LastHeaders { get; set; }
-        public int Timeout
+        public int? Timeout
         {
-            get { return RequestClient.Timeout; }   // get method
-            set { RequestClient.Timeout = value; }  // set method
+            //get { return RequestClient.Timeout; }   // get method
+            //set { RequestClient.Timeout = value; }  // set method
+
+            get;
+            set;
         }
         protected string ApiBaseUrl
         {
@@ -59,6 +62,10 @@ namespace FikaAmazonAPI.Services
         private void CreateRequest(string url, RestSharp.Method method)
         {
             RequestClient = new RestClient(ApiBaseUrl);
+            if (Timeout.HasValue)
+            {
+                RequestClient.Timeout = Timeout.Value;
+            }
             Request = new RestRequest(url, method);
         }
         protected async Task CreateUnAuthorizedRequestAsync(string url, RestSharp.Method method, List<KeyValuePair<string, string>> queryParameters = null, object postJsonObj = null)
