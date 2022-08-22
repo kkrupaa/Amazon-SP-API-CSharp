@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using System.Threading.Tasks;
 
 namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
 {
@@ -22,9 +23,9 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
         /// </summary>
         /// <param name="restRequest">Request to sign</param>
         /// <returns>restRequest with LWA signature</returns>
-        public IRestRequest Sign(IRestRequest restRequest)
+        public async Task<IRestRequest> Sign(IRestRequest restRequest)
         {
-            string accessToken = LWAClient.GetAccessToken();
+            string accessToken = (await LWAClient.GetAccessTokenAsync()).access_token;
 
             restRequest.AddHeader(AccessTokenHeaderName, accessToken);
 
