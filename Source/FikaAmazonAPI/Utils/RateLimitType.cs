@@ -148,8 +148,17 @@
         ProductPricing_GetCompetitivePricing,
         ProductPricing_GetListingOffers,
         ProductPricing_GetItemOffers,
+        ProductPricing_GetItemOffersBatch,
+        ProductPricing_GetListingOffersBatch,
 
         Sales_GetOrderMetrics,
+
+
+        EasyShip_ListHandoverSlots,
+        EasyShip_GetScheduledPackage,
+        EasyShip_CreateScheduledPackage,
+        EasyShip_UpdateScheduledPackages,
+
 
         Sellers_GetMarketplaceParticipations,
 

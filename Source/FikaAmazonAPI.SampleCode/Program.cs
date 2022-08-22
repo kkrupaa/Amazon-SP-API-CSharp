@@ -3,7 +3,6 @@ using FikaAmazonAPI.ConstructFeed.Messages;
 using FikaAmazonAPI.Parameter.Finance;
 using FikaAmazonAPI.Parameter.ListingItem;
 using FikaAmazonAPI.Parameter.ListingsItems;
-using FikaAmazonAPI.Parameter.Order;
 using FikaAmazonAPI.ReportGeneration;
 using FikaAmazonAPI.Utils;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +26,11 @@ namespace FikaAmazonAPI.SampleCode
             .Build();
 
 
+
+
+
+
+
             AmazonConnection amazonConnection = new AmazonConnection(new AmazonCredential()
             {
                 AccessKey = config.GetSection("FikaAmazonAPI:AccessKey").Value,
@@ -38,9 +42,29 @@ namespace FikaAmazonAPI.SampleCode
                 MarketPlace = MarketPlace.GetMarketPlaceByID(config.GetSection("FikaAmazonAPI:MarketPlaceID").Value),
             });
 
+            ReportManager reportManageree = new ReportManager(amazonConnection);
+            var productsttt = reportManageree.GetProducts(); //GET_MERCHANT_LISTINGS_ALL_DATA
+
+            Thread.Sleep(1000 * 60 * 15);
 
             FeedsSample feedsSample = new FeedsSample(amazonConnection);
-            //feedsSample.SubmitFeedOrderAcknowledgement();
+            double priceNow = 62;
+            double minPrice = 0.12;
+            while (true)
+            {
+
+                //Thread MapBarcodeToASIN = new Thread(() => feedsSample.SubmitFeedPRICING(priceNow, "843076000518"));
+                //MapBarcodeToASIN.Start();
+
+                Thread MapBarcodeToASIN2 = new Thread(() => feedsSample.SubmitFeedPRICING(priceNow, "074312026102..."));
+                MapBarcodeToASIN2.Start();
+
+                priceNow = priceNow - minPrice;
+                Thread.Sleep(1000 * 60 * 3);
+
+                if (priceNow < 54)
+                    priceNow = 62;
+            }
 
             var alllll = amazonConnection.ProductPricing.GetItemOffers(new Parameter.ProductPricing.ParameterGetItemOffers
             {
@@ -48,6 +72,7 @@ namespace FikaAmazonAPI.SampleCode
                 ItemCondition = ItemCondition.New,
             });
 
+            var Headers = amazonConnection.ProductPricing.LastResponseHeader;
 
             //use this method automatically know if the report are RDT or not
             var data2222 = amazonConnection.Reports.CreateReportAndDownloadFile(ReportTypes.GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_SHIPPING, DateTime.UtcNow.AddDays(-2), DateTime.UtcNow, null);
@@ -196,14 +221,6 @@ namespace FikaAmazonAPI.SampleCode
             var products2 = await reportManager2.GetReturnFBAOrderAsync(3); //GET_MERCHANT_LISTINGS_ALL_DATA
 
 
-            ParameterOrderList serachOrderList = new ParameterOrderList();
-            serachOrderList.CreatedAfter = DateTime.UtcNow.AddDays(-100);
-
-            serachOrderList.OrderStatuses = new List<OrderStatuses>();
-            serachOrderList.OrderStatuses.Add(OrderStatuses.Shipped);
-
-
-            var orders = await amazonConnection.Orders.GetOrdersAsync(serachOrderList);
 
 
             //var parameterOrderList = new ParameterOrderList

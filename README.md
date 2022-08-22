@@ -57,7 +57,7 @@ Install-Package CSharpAmazonSpAPI
 - [x] [Solicitations](https://developer-docs.amazon.com/sp-api/docs/solicitations-api-v1-reference)
 - [x] [Token](https://developer-docs.amazon.com/sp-api/docs/tokens-api-v2021-03-01-reference)  [Use Case Guide](https://developer-docs.amazon.com/sp-api/docs/tokens-api-use-case-guide)
 - [x] [Authorization](https://developer-docs.amazon.com/sp-api/docs/authorization-api-v1-reference)
-- [ ] [Easy Ship](https://developer-docs.amazon.com/sp-api/docs/easy-ship-api-v2022-03-23-reference)
+- [x] [Easy Ship](https://developer-docs.amazon.com/sp-api/docs/easy-ship-api-v2022-03-23-reference)
 - [ ] [A+ Content](https://developer-docs.amazon.com/sp-api/docs/selling-partner-api-for-a-content-management)
 
 
@@ -652,6 +652,22 @@ var def = amazonConnection.ProductType.GetDefinitionsProductType(
      requirements = RequirementsEnum.LISTING,
      locale = AmazonSpApiSDK.Models.ProductTypes.LocaleEnum.en_US
      });
+```
+
+---
+## Sales Performance Sample
+
+```CSharp
+     DateTime queryStart = DateTime.UtcNow.AddDays(-11).Date;
+     DateTime queryEnd = DateTime.UtcNow;
+     var parameters = new ParameterGetOrderMetrics();
+     parameters.marketplaceIds = new MarketplaceIds();
+     parameters.marketplaceIds.Add(MarketPlace.UnitedArabEmirates.ID);
+     parameters.interval = queryStart.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture) + "Z--" + queryEnd.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture) + "Z";
+     parameters.granularity = Constants.GranularityEnum.Day;
+     parameters.firstDayOfWeek = Constants.FirstDayOfWeek.monday;
+
+     var sales = amazonConnection.Sales.GetOrderMetrics(parameters);
 ```
 ---
 ## Q & A

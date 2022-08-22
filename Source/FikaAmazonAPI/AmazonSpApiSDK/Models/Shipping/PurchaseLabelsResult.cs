@@ -36,7 +36,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// <param name="ClientReferenceId">ClientReferenceId.</param>
         /// <param name="AcceptedRate">AcceptedRate (required).</param>
         /// <param name="LabelResults">LabelResults (required).</param>
-        public PurchaseLabelsResult(string ShipmentId = default(string), string ClientReferenceId = default(string), AcceptedRate AcceptedRate = default(AcceptedRate), LabelResultList LabelResults = default(LabelResultList))
+        public PurchaseLabelsResult(ShipmentId ShipmentId = default(ShipmentId), string ClientReferenceId = default(string), AcceptedRate AcceptedRate = default(AcceptedRate), LabelResultList LabelResults = default(LabelResultList))
         {
             // to ensure "ShipmentId" is required (not null)
             if (ShipmentId == null)
@@ -72,7 +72,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// Gets or Sets ShipmentId
         /// </summary>
         [DataMember(Name = "shipmentId", EmitDefaultValue = false)]
-        public string ShipmentId { get; set; }
+        public ShipmentId ShipmentId { get; set; }
 
         /// <summary>
         /// Gets or Sets ClientReferenceId
