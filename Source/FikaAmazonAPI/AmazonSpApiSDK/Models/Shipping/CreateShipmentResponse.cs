@@ -33,11 +33,6 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
             this.Payload = Payload;
             this.Errors = Errors;
         }
-        public CreateShipmentResponse()
-        {
-            this.Payload = default(CreateShipmentResult);
-            this.Errors = default(ErrorList);
-        }
 
         /// <summary>
         /// The payload for createShipment operation

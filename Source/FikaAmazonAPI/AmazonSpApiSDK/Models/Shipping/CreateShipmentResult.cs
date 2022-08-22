@@ -34,7 +34,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// </summary>
         /// <param name="ShipmentId">ShipmentId (required).</param>
         /// <param name="EligibleRates">EligibleRates (required).</param>
-        public CreateShipmentResult(string ShipmentId = default(string), RateList EligibleRates = default(RateList))
+        public CreateShipmentResult(ShipmentId ShipmentId = default(ShipmentId), RateList EligibleRates = default(RateList))
         {
             // to ensure "ShipmentId" is required (not null)
             if (ShipmentId == null)
@@ -60,7 +60,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// Gets or Sets ShipmentId
         /// </summary>
         [DataMember(Name = "shipmentId", EmitDefaultValue = false)]
-        public string ShipmentId { get; set; }
+        public ShipmentId ShipmentId { get; set; }
 
         /// <summary>
         /// Gets or Sets EligibleRates

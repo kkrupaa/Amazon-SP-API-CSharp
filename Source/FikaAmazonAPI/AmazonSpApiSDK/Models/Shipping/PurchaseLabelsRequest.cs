@@ -34,7 +34,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// </summary>
         /// <param name="RateId">RateId (required).</param>
         /// <param name="LabelSpecification">LabelSpecification (required).</param>
-        public PurchaseLabelsRequest(string RateId = default(string), LabelSpecification LabelSpecification = default(LabelSpecification))
+        public PurchaseLabelsRequest(RateId RateId = default(RateId), LabelSpecification LabelSpecification = default(LabelSpecification))
         {
             // to ensure "RateId" is required (not null)
             if (RateId == null)
@@ -60,7 +60,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Shipping
         /// Gets or Sets RateId
         /// </summary>
         [DataMember(Name = "rateId", EmitDefaultValue = false)]
-        public string RateId { get; set; }
+        public RateId RateId { get; set; }
 
         /// <summary>
         /// Gets or Sets LabelSpecification
