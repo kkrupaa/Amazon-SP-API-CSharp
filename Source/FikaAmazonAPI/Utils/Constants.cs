@@ -59,7 +59,6 @@ namespace FikaAmazonAPI.Utils
             relationships,
             salesRanks,
             summaries,
-            variations,
             vendorDetails
         }
 
