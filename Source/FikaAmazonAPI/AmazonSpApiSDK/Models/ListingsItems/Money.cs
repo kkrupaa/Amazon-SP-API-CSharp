@@ -22,7 +22,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
     /// The currency type and the amount.
     /// </summary>
     [DataContract]
-    public partial class Money :  IEquatable<Money>, IValidatableObject
+    public partial class Money : IEquatable<Money>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Money" /> class.
@@ -67,7 +67,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
         /// The currency amount.
         /// </summary>
         /// <value>The currency amount.</value>
-        [DataMember(Name="amount", EmitDefaultValue=false)]
+        [DataMember(Name = "amount", EmitDefaultValue = false)]
         public string Amount { get; set; }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
             sb.Append("}\n");
             return sb.ToString();
         }
-  
+
         /// <summary>
         /// Returns the JSON string presentation of the object
         /// </summary>
@@ -113,12 +113,12 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.ListingsItems
             if (input == null)
                 return false;
 
-            return 
+            return
                 (
                     this.CurrencyCode == input.CurrencyCode ||
                     (this.CurrencyCode != null &&
                     this.CurrencyCode.Equals(input.CurrencyCode))
-                ) && 
+                ) &&
                 (
                     this.Amount == input.Amount ||
                     (this.Amount != null &&
