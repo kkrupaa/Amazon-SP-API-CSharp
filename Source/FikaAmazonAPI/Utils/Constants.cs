@@ -518,7 +518,15 @@ namespace FikaAmazonAPI.Utils
             GET_FLAT_FILE_VAT_INVOICE_DATA_REPORT,
             GET_XML_VAT_INVOICE_DATA_REPORT,
             GET_FLAT_FILE_GEO_OPPORTUNITIES,
-            GET_DATE_RANGE_FINANCIAL_TRANSACTION_DATA
+            GET_DATE_RANGE_FINANCIAL_TRANSACTION_DATA,
+            GET_FBA_INVENTORY_PLANNING_DATA,
+            GET_MFN_PANEU_OFFER_STATUS,
+            GET_FBA_RECONCILIATION_REPORT_DATA,
+            GET_FBA_OVERAGE_FEE_CHARGES_DATA,
+            GET_EPR_MONTHLY_REPORTS,
+            GET_EPR_QUARTERLY_REPORTS,
+            GET_EPR_ANNUAL_REPORTS
+
 
         }
         [JsonConverter(typeof(StringEnumConverter))]
@@ -586,6 +594,7 @@ namespace FikaAmazonAPI.Utils
             Store,
             StoreStockMovement,
             WebstoreItem,
+            CartonContentsRequest
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -607,6 +616,33 @@ namespace FikaAmazonAPI.Utils
             FBA_EFN
         }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ShippingBusiness
+        {
+            [EnumMember(Value = "AmazonShipping_US")]
+            AmazonShipping_US,
+            [EnumMember(Value = "AmazonShipping_IN")]
+            AmazonShipping_IN,
+            [EnumMember(Value = "AmazonShipping_UK")]
+            AmazonShipping_UK,
+            [EnumMember(Value = "AmazonShipping_UAE")]
+            AmazonShipping_UAE,
+            [EnumMember(Value = "AmazonShipping_SA")]
+            AmazonShipping_SA,
+            [EnumMember(Value = "AmazonShipping_EG")]
+            AmazonShipping_EG,
+            [EnumMember(Value = "AmazonShipping_IT")]
+            AmazonShipping_IT
+        }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ShippingChannelType
+        {
+            [EnumMember(Value = "AMAZON")]
+            AMAZON,
+            [EnumMember(Value = "EXTERNAL")]
+            EXTERNAL
+        }
 
         ///// <summary>
         ///// One of a set of predefined ISO 8601 periods that specifies how often a report should be created.

@@ -42,12 +42,37 @@ namespace FikaAmazonAPI.SampleCode
                 MarketPlace = MarketPlace.GetMarketPlaceByID(config.GetSection("FikaAmazonAPI:MarketPlaceID").Value),
             });
 
+
+            var offfers = amazonConnection.ProductPricing.GetItemOffers(new Parameter.ProductPricing.ParameterGetItemOffers
+            {
+                Asin = "B07WYJF6KJ"
+            });
+
+
+
+
+            var dddd = amazonConnection.Seller.GetMarketplaceParticipations();
+
+            FeedsSample feedsSample = new FeedsSample(amazonConnection);
+            OrdersSample ordersSample1 = new OrdersSample(amazonConnection);
+            ordersSample1.GetOrdersPII();
+
+
             ReportManager reportManageree = new ReportManager(amazonConnection);
+            var allll = reportManageree.GetInventoryAging();
+
+
+
+
+
+            var headers = amazonConnection.ProductPricing.LastResponseHeader;
+
+
             var productsttt = reportManageree.GetProducts(); //GET_MERCHANT_LISTINGS_ALL_DATA
 
             Thread.Sleep(1000 * 60 * 15);
 
-            FeedsSample feedsSample = new FeedsSample(amazonConnection);
+
             double priceNow = 62;
             double minPrice = 0.12;
             while (true)
@@ -123,14 +148,7 @@ namespace FikaAmazonAPI.SampleCode
 
 
 
-            for (int i = 0; i < 100; i++)
-            {
-                var plci = new FikaAmazonAPI.Parameter.CatalogItems.ParameterListCatalogItems();
-                plci.UPC = "079325772114";
-                plci.MarketplaceId = FikaAmazonAPI.Utils.MarketPlace.UnitedArabEmirates.ID;
 
-                var response22 = amazonConnection.CatalogItem.ListCatalogItems(plci);
-            }
 
 
 
@@ -284,31 +302,11 @@ namespace FikaAmazonAPI.SampleCode
             });
 
 
-            var item = amazonConnection.CatalogItem.GetCatalogItem("B00CZC5F0G");
 
 
 
-            string text = System.IO.File.ReadAllText(@"C:\Users\tareq\Downloads\Beispiel_Upload.txt");
-
-            var feedresultTXT = amazonConnection.Feed.SubmitFeed(text
-                                                    , FeedType.POST_FLAT_FILE_INVLOADER_DATA
-                                                    , new List<string>() { MarketPlace.UnitedArabEmirates.ID }
-                                                    , null
-                                                    , ContentType.TXT);
 
 
-            string pathURL = string.Empty;
-            while (pathURL == string.Empty)
-            {
-                Thread.Sleep(1000 * 30);
-                var feedOutput = amazonConnection.Feed.GetFeed(feedresultTXT);
-                if (feedOutput.ProcessingStatus == AmazonSpApiSDK.Models.Feeds.Feed.ProcessingStatusEnum.DONE)
-                {
-                    var outPut = amazonConnection.Feed.GetFeedDocument(feedOutput.ResultFeedDocumentId);
-
-                    pathURL = outPut.Url;
-                }
-            }
 
 
 

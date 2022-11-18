@@ -13,6 +13,8 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
+using RestSharp.Serializers.NewtonsoftJson;
 using static FikaAmazonAPI.AmazonSpApiSDK.Models.Token.CacheTokenData;
 using static FikaAmazonAPI.Utils.Constants;
 
@@ -23,8 +25,9 @@ namespace FikaAmazonAPI.Services
         public static readonly string AccessTokenHeaderName = "x-amz-access-token";
         public static readonly string SecurityTokenHeaderName = "x-amz-security-token";
         private readonly string RateLimitLimitHeaderName = "x-amzn-RateLimit-Limit";
+        public static readonly string ShippingBusinessIdHeaderName = "x-amzn-shipping-business-id";
         protected RestClient RequestClient { get; set; }
-        protected IRestRequest Request { get; set; }
+        protected RestRequest Request { get; set; }
         protected AmazonCredential AmazonCredential { get; set; }
         protected string AmazonSandboxUrl { get; set; }
         protected string AmazonProductionUrl { get; set; }
@@ -62,6 +65,7 @@ namespace FikaAmazonAPI.Services
         private void CreateRequest(string url, RestSharp.Method method)
         {
             RequestClient = new RestClient(ApiBaseUrl);
+            RequestClient.UseNewtonsoftJson();
             if (Timeout.HasValue)
             {
                 RequestClient.Timeout = Timeout.Value;
@@ -115,7 +119,9 @@ namespace FikaAmazonAPI.Services
         {
             RestHeader();
             AddAccessToken();
-            Request = await TokenGeneration.SignWithSTSKeysAndSecurityTokenAsync(Request, RequestClient.BaseUrl.Host, AmazonCredential);
+            AddShippingBusinessId();
+            
+            Request = await TokenGeneration.SignWithSTSKeysAndSecurityTokenAsync(Request, RequestClient.Options.BaseUrl.Host, AmazonCredential);
             var response = await RequestClient.ExecuteAsync<T>(Request);
             SaveLastRequestHeader(response.Headers);
             SleepForRateLimit(response.Headers, rateLimitType);
@@ -127,10 +133,10 @@ namespace FikaAmazonAPI.Services
             }
             return response.Data;
         }
-        private void SaveLastRequestHeader(IList<RestSharp.Parameter> parameters)
+        private void SaveLastRequestHeader(IReadOnlyCollection<RestSharp.HeaderParameter> parameters)
         {
             LastHeaders = new List<KeyValuePair<string, string>>();
-            foreach (RestSharp.Parameter parameter in parameters)
+            foreach (RestSharp.Parameter parameter in parameters ?? Enumerable.Empty<HeaderParameter>())
             {
                 if (parameter != null && parameter.Name != null && parameter.Value != null)
                 {
@@ -143,14 +149,12 @@ namespace FikaAmazonAPI.Services
         {
             lock (Request)
             {
-                Request.Parameters.RemoveAll(parameter => ParameterType.HttpHeader.Equals(parameter.Type)
-                                                                          && parameter.Name == AWSSignerHelper.XAmzDateHeaderName);
-                Request.Parameters.RemoveAll(parameter => ParameterType.HttpHeader.Equals(parameter.Type)
-                                                              && parameter.Name == AWSSignerHelper.AuthorizationHeaderName);
-                Request.Parameters.RemoveAll(parameter => ParameterType.HttpHeader.Equals(parameter.Type)
-                                                              && parameter.Name == AccessTokenHeaderName);
-                Request.Parameters.RemoveAll(parameter => ParameterType.HttpHeader.Equals(parameter.Type)
-                                                              && parameter.Name == SecurityTokenHeaderName);
+                Request.Parameters.RemoveParameter(AWSSignerHelper.XAmzDateHeaderName);
+                Request.Parameters.RemoveParameter(AWSSignerHelper.AuthorizationHeaderName);
+                Request.Parameters.RemoveParameter(AccessTokenHeaderName);
+                Request.Parameters.RemoveParameter(SecurityTokenHeaderName);
+                Request.Parameters.RemoveParameter(ShippingBusinessIdHeaderName);
+
             }
         }
 
@@ -184,7 +188,7 @@ namespace FikaAmazonAPI.Services
             }
         }
 
-        private void SleepForRateLimit(IList<RestSharp.Parameter> headers, RateLimitType rateLimitType = RateLimitType.UNSET)
+        private void SleepForRateLimit(IReadOnlyCollection<RestSharp.Parameter> headers, RateLimitType rateLimitType = RateLimitType.UNSET)
         {
             try
             {
@@ -235,7 +239,7 @@ namespace FikaAmazonAPI.Services
             return response.Data;
         }
 
-        protected void ParseResponse(IRestResponse response)
+        protected void ParseResponse(RestResponse response)
         {
             if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Accepted || response.StatusCode == HttpStatusCode.Created)
                 return;
@@ -291,6 +295,12 @@ namespace FikaAmazonAPI.Services
             {
                 Request.AddOrUpdateHeader(AccessTokenHeaderName, AccessToken);
             }
+        }
+
+        protected void AddShippingBusinessId()
+        {
+            if (AmazonCredential.ShippingBusiness.HasValue)
+                Request.AddOrUpdateHeader(ShippingBusinessIdHeaderName, AmazonCredential.ShippingBusiness.Value.GetEnumMemberValue());
         }
 
         protected async void RefreshToken(TokenDataType tokenDataType = TokenDataType.Normal, CreateRestrictedDataTokenRequest requestPII = null)
@@ -367,7 +377,7 @@ namespace FikaAmazonAPI.Services
 
         public async Task<CreateRestrictedDataTokenResponse> CreateRestrictedDataTokenAsync(CreateRestrictedDataTokenRequest createRestrictedDataTokenRequest)
         {
-            await CreateAuthorizedRequestAsync(TokenApiUrls.RestrictedDataToken, RestSharp.Method.POST, postJsonObj: createRestrictedDataTokenRequest);
+            await CreateAuthorizedRequestAsync(TokenApiUrls.RestrictedDataToken, RestSharp.Method.Post, postJsonObj: createRestrictedDataTokenRequest);
             var response = await ExecuteRequestAsync<CreateRestrictedDataTokenResponse>();
             return response;
         }
