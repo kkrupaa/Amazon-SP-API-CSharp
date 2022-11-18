@@ -43,7 +43,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
 
             try
             {
-                IRestResponse response = null;
+                RestResponse response = null;
                 for (int i = 0; i < 5; i++)
                 {
                     response = await RestClient.ExecuteAsync(accessTokenRequest).ConfigureAwait(false);

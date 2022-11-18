@@ -23,7 +23,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
         /// </summary>
         /// <param name="restRequest">Request to sign</param>
         /// <returns>restRequest with LWA signature</returns>
-        public async Task<IRestRequest> Sign(IRestRequest restRequest)
+        public async Task<RestRequest> Sign(RestRequest restRequest)
         {
             string accessToken = (await LWAClient.GetAccessTokenAsync()).access_token;
 

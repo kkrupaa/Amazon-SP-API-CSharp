@@ -68,7 +68,7 @@ namespace FikaAmazonAPI.Services
             RequestClient.UseNewtonsoftJson();
             if (Timeout.HasValue)
             {
-                RequestClient.Timeout = Timeout.Value;
+                RequestClient.Options.MaxTimeout = Timeout.Value;
             }
             Request = new RestRequest(url, method);
         }
