@@ -31,6 +31,20 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         {
         }
 
+        uint _value;
+        public UnsignedIntType(uint value)
+        {
+            this._value = value;
+        }
+        public static implicit operator uint(UnsignedIntType d)
+        {
+            return d._value;
+        }
+        public static implicit operator UnsignedIntType(uint d)
+        {
+            return new UnsignedIntType(d);
+        }
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

@@ -89,5 +89,13 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// </summary>
         [EnumMember(Value = "CapSealing")]
         CapSealing = 11,
+
+        /// <summary>
+        /// Enum SetCreation for value: RemoveFromHanger
+        /// </summary>
+        [EnumMember(Value = "RemoveFromHanger")]
+        RemoveFromHanger = 12,
+
+        
     }
 }
