@@ -31,16 +31,16 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         {
         }
 
-        uint _value;
-        public UnsignedIntType(uint value)
+        Int64 _value;
+        public UnsignedIntType(Int64 value)
         {
             this._value = value;
         }
-        public static implicit operator uint(UnsignedIntType d)
+        public static implicit operator Int64(UnsignedIntType d)
         {
             return d._value;
         }
-        public static implicit operator UnsignedIntType(uint d)
+        public static implicit operator UnsignedIntType(Int64 d)
         {
             return new UnsignedIntType(d);
         }
