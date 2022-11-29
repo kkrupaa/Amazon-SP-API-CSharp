@@ -42,6 +42,12 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         [EnumMember(Value = "IN")]
         IN = 3,
 
+        /// <summary>
+        /// Enum Centimeters for value: CM
+        /// </summary>
+        [EnumMember(Value = "CM")]
+        CM = 4,
+
     }
 
 }
