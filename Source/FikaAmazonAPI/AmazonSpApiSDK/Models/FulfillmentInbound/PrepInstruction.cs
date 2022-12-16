@@ -96,6 +96,12 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         [EnumMember(Value = "RemoveFromHanger")]
         RemoveFromHanger = 12,
 
-        
+        /// <summary>
+        /// Enum SetCreation for value: RemoveFromHanger
+        /// </summary>
+        [EnumMember(Value = "NoPrep")]
+        NoPrep = 13,
+
+
     }
 }
