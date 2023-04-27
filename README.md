@@ -97,7 +97,10 @@ For more information about keys please check [New Amazon doc for create keys Dev
 ---
 ## Usage
 
+> ### Please be aware there has been a change to the _Orders.GetOrderAddress()_ method please reference the new sample code for more details.
+
 ### Configuration
+You can configure a connection like so please see [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/Program.cs) for the relevant code file.
 ```CSharp
 AmazonConnection amazonConnection = new AmazonConnection(new AmazonCredential()
 {
@@ -110,9 +113,41 @@ AmazonConnection amazonConnection = new AmazonConnection(new AmazonCredential()
      MarketPlace = MarketPlace.UnitedArabEmirates, //MarketPlace.GetMarketPlaceByID("A2VIGQ35RCS4UG") 
 });
 
+or 
+
+AmazonConnection amazonConnection = new AmazonConnection(new AmazonCredential()
+{
+     AccessKey = "AKIAXXXXXXXXXXXXXXX",
+     SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+     RoleArn = "arn:aws:iam::XXXXXXXXXXXXX:role/XXXXXXXXXXXX",
+     ClientId = "amzn1.application-XXX-client.XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+     ClientSecret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+     RefreshToken= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+     MarketPlaceID = "A2VIGQ35RCS4UG"
+});
+
 ```
 
-### Order List, For more orders sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.Test/Reports.cs).
+### Configuration using a proxy
+Please see [here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/Program.cs) for the relevant code file.
+>```csharp
+>AmazonConnection amazonConnection = new AmazonConnection(new AmazonCredential()
+>{
+>     AccessKey = "AKIAXXXXXXXXXXXXXXX",
+>     SecretKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+>     RoleArn = "arn:aws:iam::XXXXXXXXXXXXX:role/XXXXXXXXXXXX",
+>     ClientId = "amzn1.application-XXX-client.XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+>     ClientSecret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+>     RefreshToken= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+>     MarketPlaceID = "A2VIGQ35RCS4UG",
+>     ProxyAddress = "http(s)://xxx.xxx.xxx.xxx:xxxx",
+>});
+>```
+>> * Assign your proxy address to the ProxyAddress Property and you'll be able to use a proxy account. 
+>>
+>> ***This is not required and will operate normally without the ProxyAddress being set.***
+
+### Order List, For more orders sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/ReportsSample.cs).
 ```CSharp
 ParameterOrderList serachOrderList = new ParameterOrderList();
 serachOrderList.CreatedAfter = DateTime.UtcNow.AddMinutes(-600000);
@@ -136,7 +171,21 @@ var orders = amazonConnection.Orders.GetOrders(serachOrderList);
 ```
 
 
-### Order List with parameter including PII data
+### Order List with parameter including PII data Simple
+```CSharp
+var parameterOrderList = new ParameterOrderList
+        {
+            CreatedAfter = DateTime.UtcNow.AddHours(-24),
+            OrderStatuses = new List<OrderStatuses> { OrderStatuses.Unshipped },
+            MarketplaceIds = new List<string> { MarketPlace.UnitedArabEmirates.ID },
+            IsNeedRestrictedDataToken = true
+        };
+
+var orders = _amazonConnection.Orders.GetOrders(parameterOrderList);
+
+```
+
+### Order List with parameter including PII data Advance (if you want to get specific data Elements object only)
 ```CSharp
 var parameterOrderList = new ParameterOrderList
         {
@@ -184,7 +233,7 @@ var orders = amazonConnection.Orders.GetOrders
 );
 ```
 
-### Report List, For more report sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.Test/Orders.cs).
+### Report List, For more report sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/OrdersSample.cs).
 ```CSharp
 var parameters = new ParameterReportList();
 parameters.pageSize = 100;
@@ -234,6 +283,7 @@ var returnMFNOrder = reportManager.GetReturnMFNOrder(90); //GET_FLAT_FILE_RETURN
 var returnFBAOrder = reportManager.GetReturnFBAOrder(90); //GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA
 var reimbursementsOrder = reportManager.GetReimbursementsOrder(180); //GET_FBA_REIMBURSEMENTS_DATA
 var feedbacks = reportManager.GetFeedbackFromDays(180); //GET_SELLER_FEEDBACK_DATA
+var LedgerDetails = reportManager.GetLedgerDetailAsync(10); //GET_LEDGER_DETAIL_VIEW_DATA
 ```
 
 
@@ -301,7 +351,7 @@ var data = await amazonConnection.CatalogItem.SearchCatalogItems202204Async(
 
 
 
-### Product Pricing, For more Pricing sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.Test/ProductPricing.cs).
+### Product Pricing, For more Pricing sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/ProductPricingSample.cs).
 ```CSharp
 
 var data = amazonConnection.ProductPricing.GetPricing(
@@ -324,8 +374,15 @@ var data = amazonConnection.ProductPricing.GetCompetitivePricing(
     });
 ```
 
+### GetFeaturedOfferExpectedPriceBatch
+```CSharp
 
-### Notifications Create Destination, For more Notifications sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.Test/Notifications.cs).
+ var priceDemo = new ProductPricingSample(amazonConnection);
+ await priceDemo.GetFeaturedOfferExpectedPriceBatch();
+```
+
+
+### Notifications Create Destination, For more Notifications sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/NotificationsSample.cs).
 ```CSharp
 
 //EventBridge
@@ -351,7 +408,7 @@ var dataSqs = amazonConnection.Notification.CreateDestination(
     });
 ```
 
-### Notifications Create Subscription, For more Notifications sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.Test/Notifications.cs).
+### Notifications Create Subscription, For more Notifications sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/NotificationsSample.cs).
 ```CSharp
 
 //SQS
@@ -396,7 +453,7 @@ public class CustomMessageReceiver : IMessageReceiver
 Here full sample for submit feed to change price and generate XML and get final report for result same as in [doc](https://github.com/amzn/selling-partner-api-docs/blob/main/guides/en-US/use-case-guides/feeds-api-use-case-guide/feeds-api-use-case-guide_2021-06-30.md).
 Notes: not all [feed type](https://github.com/amzn/selling-partner-api-docs/blob/main/references/feeds-api/feedtype-values.md) finished as it's big work and effort but all classes are partial for easy change and you can generate XML outside and use our library to get data, now we support only submit existing product, change quantity and change price , I list most of XSD here Source\FikaAmazonAPI\ConstructFeed\xsd its will help you easy generate class and add it in your app to generate final feed xml.
 
-#### Feed Submit for change price
+#### Feed Submit for change price , For more Feed sample please check [Here](https://github.com/abuzuhri/Amazon-SP-API-CSharp/blob/main/Source/FikaAmazonAPI.SampleCode/FeedsSample.cs).
 ```CSharp
 ConstructFeedService createDocument = new ConstructFeedService("{SellerID}", "1.02");
 
@@ -406,7 +463,7 @@ list.Add(new PriceMessage()
     SKU = "8201031206122...",
     StandardPrice = new StandardPrice()
     {
-        currency = BaseCurrencyCode.AED.ToString(),
+        currency = amazonConnection.GetCurrentMarketplace.CurrencyCode.ToString(),
         Value = (201.0522M).ToString("0.00")
     }
 });
@@ -529,7 +586,7 @@ public void SubmitFeedOrderAdjustment()
                                             DirectPaymentType = "Credit Card Refund",
                                             Amount = new CurrencyAmount() {
                                                 Value = 10.50M,
-                                                currency = BaseCurrencyCode.GBP
+                                                currency = amazonConnection.GetCurrentMarketplace.CurrencyCode
                                             }
                                        }
                                    }
@@ -562,6 +619,19 @@ var amazonConnection = new AmazonConnection(new AmazonCredential()
       .
       .
       IsActiveLimitRate=false
+});
+```
+
+---
+
+## Enable debug mode
+You can also enable log for all http request and response you can set IsDebugMode=true in AmazonCredential
+```CSharp
+var amazonConnection = new AmazonConnection(new AmazonCredential()
+{
+      .
+      .
+      IsDebugMode = true
 });
 ```
 

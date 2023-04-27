@@ -61,47 +61,58 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         HangGarment = 6,
 
         /// <summary>
+        /// Enum SetCreation for value: SetCreation
+        /// </summary>
+        [EnumMember(Value = "SetCreation")]
+        SetCreation = 7,
+
+        /// <summary>
         /// Enum Boxing for value: Boxing
         /// </summary>
         [EnumMember(Value = "Boxing")]
-        Boxing = 7,
+        Boxing = 8,
+
+        /// <summary>
+        /// Enum RemoveFromHanger for value: RemoveFromHanger
+        /// </summary>
+        [EnumMember(Value = "RemoveFromHanger")]
+        RemoveFromHanger = 9,
+
+        /// <summary>
+        /// Enum Debundle for value: Debundle
+        /// </summary>
+        [EnumMember(Value = "Debundle")]
+        Debundle = 10,
 
         /// <summary>
         /// Enum SuffocationStickering for value: SuffocationStickering
         /// </summary>
         [EnumMember(Value = "SuffocationStickering")]
-        SuffocationStickering = 8,
+        SuffocationStickering = 11,
 
         /// <summary>
-        /// Enum SetCreation for value: SetCreation
-        /// </summary>
-        [EnumMember(Value = "SetCreation")]
-        SetCreation = 9,
-
-        /// <summary>
-        /// Enum SetCreation for value: SetCreation
-        /// </summary>
-        [EnumMember(Value = "SetStickering")]
-        SetStickering = 10,
-
-        /// <summary>
-        /// Enum SetCreation for value: SetCreation
+        /// Enum CapSealing for value: CapSealing
         /// </summary>
         [EnumMember(Value = "CapSealing")]
-        CapSealing = 11,
+        CapSealing = 12,
 
         /// <summary>
-        /// Enum SetCreation for value: RemoveFromHanger
+        /// Enum SetStickering for value: SetStickering
         /// </summary>
-        [EnumMember(Value = "RemoveFromHanger")]
-        RemoveFromHanger = 12,
+        [EnumMember(Value = "SetStickering")]
+        SetStickering = 13,
 
         /// <summary>
-        /// Enum SetCreation for value: RemoveFromHanger
+        /// Enum BlankStickering for value: BlankStickering
+        /// </summary>
+        [EnumMember(Value = "BlankStickering")]
+        BlankStickering = 14,
+
+        /// <summary>
+        /// Enum NoPrep for value: NoPrep
         /// </summary>
         [EnumMember(Value = "NoPrep")]
-        NoPrep = 13,
-
-
+        NoPrep = 15
     }
+
 }

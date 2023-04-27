@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
@@ -18,12 +19,27 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
         public LWAAuthorizationCredentials LWAAuthorizationCredentials { get; private set; }
 
 
-        public LWAClient(LWAAuthorizationCredentials lwaAuthorizationCredentials)
+        public LWAClient(LWAAuthorizationCredentials lwaAuthorizationCredentials, string proxyAddress = null)
         {
 
             LWAAuthorizationCredentials = lwaAuthorizationCredentials;
             LWAAccessTokenRequestMetaBuilder = new LWAAccessTokenRequestMetaBuilder();
-            RestClient = new RestClient(LWAAuthorizationCredentials.Endpoint.GetLeftPart(UriPartial.Authority));
+            // RestClient = new RestClient(LWAAuthorizationCredentials.Endpoint.GetLeftPart(UriPartial.Authority));
+            if (string.IsNullOrWhiteSpace(proxyAddress))
+            {
+                RestClient = new RestClient(LWAAuthorizationCredentials.Endpoint.GetLeftPart(UriPartial.Authority));
+            }else
+            {
+                var options = new RestClientOptions(LWAAuthorizationCredentials.Endpoint.GetLeftPart(UriPartial.Authority))
+                {
+                    Proxy = new System.Net.WebProxy()
+                    {
+                        Address = new Uri(proxyAddress)
+                    }
+                };
+
+                RestClient = new RestClient(options);
+            }
         }
 
         /// <summary>
@@ -31,7 +47,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
         /// </summary>
         /// <param name="lwaAccessTokenRequestMeta">LWA AccessTokenRequest metadata</param>
         /// <returns>LWA Access Token</returns>
-        public virtual async Task<TokenResponse> GetAccessTokenAsync()
+        public virtual async Task<TokenResponse> GetAccessTokenAsync(CancellationToken cancellationToken = default)
         {
             LWAAccessTokenRequestMeta lwaAccessTokenRequestMeta = LWAAccessTokenRequestMetaBuilder.Build(LWAAuthorizationCredentials);
             var accessTokenRequest = new RestRequest(LWAAuthorizationCredentials.Endpoint.AbsolutePath, RestSharp.Method.Post);
