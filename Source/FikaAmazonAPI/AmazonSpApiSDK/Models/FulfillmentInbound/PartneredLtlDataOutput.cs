@@ -58,7 +58,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// <param name="isBillOfLadingAvailable">Indicates whether the bill of lading for the shipment is available. (required).</param>
         /// <param name="partneredEstimate">The estimated shipping cost using an Amazon-partnered carrier..</param>
         /// <param name="carrierName">The carrier for the inbound shipment. (required).</param>
-        public PartneredLtlDataOutput(Contact contact = default(Contact), long? boxCount = default(long?), SellerFreightClass? sellerFreightClass = default(SellerFreightClass?), DateTime? freightReadyDate = default(DateTime?), PalletList palletList = default(PalletList), Weight totalWeight = default(Weight), Amount sellerDeclaredValue = default(Amount), Amount amazonCalculatedValue = default(Amount), DateTime? previewPickupDate = default(DateTime?), DateTime? previewDeliveryDate = default(DateTime?), SellerFreightClass previewFreightClass = default(SellerFreightClass), string amazonReferenceId = default(string), bool? isBillOfLadingAvailable = default(bool?), PartneredEstimate partneredEstimate = default(PartneredEstimate), string carrierName = default(string))
+        public PartneredLtlDataOutput(Contact contact = default(Contact), long? boxCount = default(long?), String sellerFreightClass = default(String?), DateTime? freightReadyDate = default(DateTime?), PalletList palletList = default(PalletList), Weight totalWeight = default(Weight), Amount sellerDeclaredValue = default(Amount), Amount amazonCalculatedValue = default(Amount), DateTime? previewPickupDate = default(DateTime?), DateTime? previewDeliveryDate = default(DateTime?), string previewFreightClass = default(string), string amazonReferenceId = default(string), bool? isBillOfLadingAvailable = default(bool?), string partneredEstimate = default(string), string carrierName = default(string))
         {
             // to ensure "contact" is required (not null)
             if (contact == null)
@@ -248,7 +248,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// </summary>
         /// <value>The estimated shipping cost using an Amazon-partnered carrier.</value>
         [DataMember(Name = "PartneredEstimate", EmitDefaultValue = false)]
-        public PartneredEstimate PartneredEstimate { get; set; }
+        public string PartneredEstimate { get; set; }
 
         /// <summary>
         /// The carrier for the inbound shipment.

@@ -21,19 +21,19 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Orders
         {
         }
 
-        Int64 _value;
-        public UnsignedIntType(Int64 value)
-        {
-            this._value = value;
-        }
-        public static implicit operator Int64(UnsignedIntType d)
-        {
-            return d._value;
-        }
-        public static implicit operator UnsignedIntType(Int64 d)
-        {
-            return new UnsignedIntType(d);
-        }
+        //Int64 _value;
+        //public UnsignedIntType(Int64 value)
+        //{
+        //    this._value = value;
+        //}
+        //public static implicit operator Int64(UnsignedIntType d)
+        //{
+        //    return d._value;
+        //}
+        //public static implicit operator UnsignedIntType(Int64 d)
+        //{
+        //    return new UnsignedIntType(d);
+        //}
 
         /// <summary>
         /// Returns the string presentation of the object
