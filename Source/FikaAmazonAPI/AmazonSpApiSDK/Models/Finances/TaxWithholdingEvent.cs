@@ -12,13 +12,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// An adjustment to the seller&#39;s account.
+    /// A TaxWithholding event on seller&#39;s account.
     /// </summary>
     [DataContract]
     public partial class TaxWithholdingEvent : IEquatable<TaxWithholdingEvent>, IValidatableObject
@@ -26,24 +27,17 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <summary>
         /// Initializes a new instance of the <see cref="TaxWithholdingEvent" /> class.
         /// </summary>
-        /// <param name="AdjustmentType">The type of adjustment.  Possible values:  * FBAInventoryReimbursement - An FBA inventory reimbursement to a seller&#39;s account. This occurs if a seller&#39;s inventory is damaged.  * ReserveEvent - A reserve event that is generated at the time of a settlement period closing. This occurs when some money from a seller&#39;s account is held back.  * PostageBilling - The amount paid by a seller for shipping labels.  * PostageRefund - The reimbursement of shipping labels purchased for orders that were canceled or refunded.  * LostOrDamagedReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account for a package that we lost or damaged.  * CanceledButPickedUpReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account. This occurs when a package is picked up and the order is subsequently canceled. This value is used only in the India marketplace.  * ReimbursementClawback - An Amazon Easy Ship reimbursement clawback from a seller&#39;s account. This occurs when a prior reimbursement is reversed. This value is used only in the India marketplace.  * SellerRewards - An award credited to a seller&#39;s account for their participation in an offer in the Seller Rewards program. Applies only to the India marketplace..</param>
-        /// <param name="PostedDate">The date and time when the financial event was posted..</param>
-        /// <param name="AdjustmentAmount">The amount adjusted as part of this event..</param>
-        /// <param name="AdjustmentItemList">A list of information about adjustments to an account..</param>
-        public TaxWithholdingEvent(string AdjustmentType = default(string), DateTime? PostedDate = default(DateTime?), Currency AdjustmentAmount = default(Currency), AdjustmentItemList AdjustmentItemList = default(AdjustmentItemList))
+        /// <param name="postedDate">The date and time when the financial event was posted..</param>
+        /// <param name="baseAmount">The amount which tax was withheld against..</param>
+        /// <param name="withheldAmount">The amount of the tax withholding deducted from seller&#39;s account..</param>
+        /// <param name="taxWithholdingPeriod">Time period for which tax is withheld..</param>
+        public TaxWithholdingEvent(DateTime? postedDate = default(DateTime?), Currency baseAmount = default(Currency), Currency withheldAmount = default(Currency), TaxWithholdingPeriod taxWithholdingPeriod = default(TaxWithholdingPeriod))
         {
-            this.AdjustmentType = AdjustmentType;
-            this.PostedDate = PostedDate;
-            this.AdjustmentAmount = AdjustmentAmount;
-            this.AdjustmentItemList = AdjustmentItemList;
+            this.PostedDate = postedDate;
+            this.BaseAmount = baseAmount;
+            this.WithheldAmount = withheldAmount;
+            this.TaxWithholdingPeriod = taxWithholdingPeriod;
         }
-
-        /// <summary>
-        /// The type of adjustment.  Possible values:  * FBAInventoryReimbursement - An FBA inventory reimbursement to a seller&#39;s account. This occurs if a seller&#39;s inventory is damaged.  * ReserveEvent - A reserve event that is generated at the time of a settlement period closing. This occurs when some money from a seller&#39;s account is held back.  * PostageBilling - The amount paid by a seller for shipping labels.  * PostageRefund - The reimbursement of shipping labels purchased for orders that were canceled or refunded.  * LostOrDamagedReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account for a package that we lost or damaged.  * CanceledButPickedUpReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account. This occurs when a package is picked up and the order is subsequently canceled. This value is used only in the India marketplace.  * ReimbursementClawback - An Amazon Easy Ship reimbursement clawback from a seller&#39;s account. This occurs when a prior reimbursement is reversed. This value is used only in the India marketplace.  * SellerRewards - An award credited to a seller&#39;s account for their participation in an offer in the Seller Rewards program. Applies only to the India marketplace.
-        /// </summary>
-        /// <value>The type of adjustment.  Possible values:  * FBAInventoryReimbursement - An FBA inventory reimbursement to a seller&#39;s account. This occurs if a seller&#39;s inventory is damaged.  * ReserveEvent - A reserve event that is generated at the time of a settlement period closing. This occurs when some money from a seller&#39;s account is held back.  * PostageBilling - The amount paid by a seller for shipping labels.  * PostageRefund - The reimbursement of shipping labels purchased for orders that were canceled or refunded.  * LostOrDamagedReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account for a package that we lost or damaged.  * CanceledButPickedUpReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account. This occurs when a package is picked up and the order is subsequently canceled. This value is used only in the India marketplace.  * ReimbursementClawback - An Amazon Easy Ship reimbursement clawback from a seller&#39;s account. This occurs when a prior reimbursement is reversed. This value is used only in the India marketplace.  * SellerRewards - An award credited to a seller&#39;s account for their participation in an offer in the Seller Rewards program. Applies only to the India marketplace.</value>
-        [DataMember(Name = "AdjustmentType", EmitDefaultValue = false)]
-        public string AdjustmentType { get; set; }
 
         /// <summary>
         /// The date and time when the financial event was posted.
@@ -53,18 +47,25 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         public DateTime? PostedDate { get; set; }
 
         /// <summary>
-        /// The amount adjusted as part of this event.
+        /// The amount which tax was withheld against.
         /// </summary>
-        /// <value>The amount adjusted as part of this event.</value>
-        [DataMember(Name = "AdjustmentAmount", EmitDefaultValue = false)]
-        public Currency AdjustmentAmount { get; set; }
+        /// <value>The amount which tax was withheld against.</value>
+        [DataMember(Name = "BaseAmount", EmitDefaultValue = false)]
+        public Currency BaseAmount { get; set; }
 
         /// <summary>
-        /// A list of information about adjustments to an account.
+        /// The amount of the tax withholding deducted from seller&#39;s account.
         /// </summary>
-        /// <value>A list of information about adjustments to an account.</value>
-        [DataMember(Name = "AdjustmentItemList", EmitDefaultValue = false)]
-        public AdjustmentItemList AdjustmentItemList { get; set; }
+        /// <value>The amount of the tax withholding deducted from seller&#39;s account.</value>
+        [DataMember(Name = "WithheldAmount", EmitDefaultValue = false)]
+        public Currency WithheldAmount { get; set; }
+
+        /// <summary>
+        /// Time period for which tax is withheld.
+        /// </summary>
+        /// <value>Time period for which tax is withheld.</value>
+        [DataMember(Name = "TaxWithholdingPeriod", EmitDefaultValue = false)]
+        public TaxWithholdingPeriod TaxWithholdingPeriod { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -74,10 +75,10 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             var sb = new StringBuilder();
             sb.Append("class TaxWithholdingEvent {\n");
-            sb.Append("  AdjustmentType: ").Append(AdjustmentType).Append("\n");
             sb.Append("  PostedDate: ").Append(PostedDate).Append("\n");
-            sb.Append("  AdjustmentAmount: ").Append(AdjustmentAmount).Append("\n");
-            sb.Append("  AdjustmentItemList: ").Append(AdjustmentItemList).Append("\n");
+            sb.Append("  BaseAmount: ").Append(BaseAmount).Append("\n");
+            sb.Append("  WithheldAmount: ").Append(WithheldAmount).Append("\n");
+            sb.Append("  TaxWithholdingPeriod: ").Append(TaxWithholdingPeriod).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -86,7 +87,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -113,24 +114,24 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 
             return
                 (
-                    this.AdjustmentType == input.AdjustmentType ||
-                    (this.AdjustmentType != null &&
-                    this.AdjustmentType.Equals(input.AdjustmentType))
-                ) &&
-                (
                     this.PostedDate == input.PostedDate ||
                     (this.PostedDate != null &&
                     this.PostedDate.Equals(input.PostedDate))
                 ) &&
                 (
-                    this.AdjustmentAmount == input.AdjustmentAmount ||
-                    (this.AdjustmentAmount != null &&
-                    this.AdjustmentAmount.Equals(input.AdjustmentAmount))
+                    this.BaseAmount == input.BaseAmount ||
+                    (this.BaseAmount != null &&
+                    this.BaseAmount.Equals(input.BaseAmount))
                 ) &&
                 (
-                    this.AdjustmentItemList == input.AdjustmentItemList ||
-                    (this.AdjustmentItemList != null &&
-                    this.AdjustmentItemList.Equals(input.AdjustmentItemList))
+                    this.WithheldAmount == input.WithheldAmount ||
+                    (this.WithheldAmount != null &&
+                    this.WithheldAmount.Equals(input.WithheldAmount))
+                ) &&
+                (
+                    this.TaxWithholdingPeriod == input.TaxWithholdingPeriod ||
+                    (this.TaxWithholdingPeriod != null &&
+                    this.TaxWithholdingPeriod.Equals(input.TaxWithholdingPeriod))
                 );
         }
 
@@ -143,14 +144,14 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AdjustmentType != null)
-                    hashCode = hashCode * 59 + this.AdjustmentType.GetHashCode();
                 if (this.PostedDate != null)
                     hashCode = hashCode * 59 + this.PostedDate.GetHashCode();
-                if (this.AdjustmentAmount != null)
-                    hashCode = hashCode * 59 + this.AdjustmentAmount.GetHashCode();
-                if (this.AdjustmentItemList != null)
-                    hashCode = hashCode * 59 + this.AdjustmentItemList.GetHashCode();
+                if (this.BaseAmount != null)
+                    hashCode = hashCode * 59 + this.BaseAmount.GetHashCode();
+                if (this.WithheldAmount != null)
+                    hashCode = hashCode * 59 + this.WithheldAmount.GetHashCode();
+                if (this.TaxWithholdingPeriod != null)
+                    hashCode = hashCode * 59 + this.TaxWithholdingPeriod.GetHashCode();
                 return hashCode;
             }
         }

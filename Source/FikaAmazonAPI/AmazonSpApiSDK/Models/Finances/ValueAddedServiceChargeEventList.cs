@@ -18,18 +18,53 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// A list of adjustment event information for the seller&#39;s account.
+    /// An event related to a value added service charge.
     /// </summary>
     [DataContract]
-    public partial class ValueAddedServiceChargeEventList : List<AdjustmentEvent>, IEquatable<ValueAddedServiceChargeEventList>, IValidatableObject
+    public partial class ValueAddedServiceChargeEventList : IEquatable<ValueAddedServiceChargeEventList>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValueAddedServiceChargeEventList" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        public ValueAddedServiceChargeEventList() : base()
+        /// <param name="transactionType">Indicates the type of transaction.  Example: &#39;Other Support Service fees&#39;.</param>
+        /// <param name="postedDate">The date and time when the financial event was posted..</param>
+        /// <param name="description">A short description of the service charge event..</param>
+        /// <param name="transactionAmount">The amount of the service charge event..</param>
+        public ValueAddedServiceChargeEventList(string transactionType = default(string), DateTime? postedDate = default(DateTime?), string description = default(string), Currency transactionAmount = default(Currency))
         {
+            this.TransactionType = transactionType;
+            this.PostedDate = postedDate;
+            this.Description = description;
+            this.TransactionAmount = transactionAmount;
         }
+
+        /// <summary>
+        /// Indicates the type of transaction.  Example: &#39;Other Support Service fees&#39;
+        /// </summary>
+        /// <value>Indicates the type of transaction.  Example: &#39;Other Support Service fees&#39;</value>
+        [DataMember(Name = "TransactionType", EmitDefaultValue = false)]
+        public string TransactionType { get; set; }
+
+        /// <summary>
+        /// The date and time when the financial event was posted.
+        /// </summary>
+        /// <value>The date and time when the financial event was posted.</value>
+        [DataMember(Name = "PostedDate", EmitDefaultValue = false)]
+        public DateTime? PostedDate { get; set; }
+
+        /// <summary>
+        /// A short description of the service charge event.
+        /// </summary>
+        /// <value>A short description of the service charge event.</value>
+        [DataMember(Name = "Description", EmitDefaultValue = false)]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// The amount of the service charge event.
+        /// </summary>
+        /// <value>The amount of the service charge event.</value>
+        [DataMember(Name = "TransactionAmount", EmitDefaultValue = false)]
+        public Currency TransactionAmount { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -39,7 +74,10 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             var sb = new StringBuilder();
             sb.Append("class ValueAddedServiceChargeEventList {\n");
-            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
+            sb.Append("  TransactionType: ").Append(TransactionType).Append("\n");
+            sb.Append("  PostedDate: ").Append(PostedDate).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  TransactionAmount: ").Append(TransactionAmount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -48,7 +86,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -73,7 +111,27 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             if (input == null)
                 return false;
 
-            return base.Equals(input);
+            return
+                (
+                    this.TransactionType == input.TransactionType ||
+                    (this.TransactionType != null &&
+                    this.TransactionType.Equals(input.TransactionType))
+                ) &&
+                (
+                    this.PostedDate == input.PostedDate ||
+                    (this.PostedDate != null &&
+                    this.PostedDate.Equals(input.PostedDate))
+                ) &&
+                (
+                    this.Description == input.Description ||
+                    (this.Description != null &&
+                    this.Description.Equals(input.Description))
+                ) &&
+                (
+                    this.TransactionAmount == input.TransactionAmount ||
+                    (this.TransactionAmount != null &&
+                    this.TransactionAmount.Equals(input.TransactionAmount))
+                );
         }
 
         /// <summary>
@@ -84,7 +142,15 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.TransactionType != null)
+                    hashCode = hashCode * 59 + this.TransactionType.GetHashCode();
+                if (this.PostedDate != null)
+                    hashCode = hashCode * 59 + this.PostedDate.GetHashCode();
+                if (this.Description != null)
+                    hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.TransactionAmount != null)
+                    hashCode = hashCode * 59 + this.TransactionAmount.GetHashCode();
                 return hashCode;
             }
         }

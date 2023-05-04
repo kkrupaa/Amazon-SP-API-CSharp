@@ -18,7 +18,7 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// A tax deduction at source (TDS) claim reimbursement event on the seller&#39;s account.
+    /// An event related to a Tax-Deducted-at-Source (TDS) reimbursement.
     /// </summary>
     [DataContract]
     public partial class TDSReimbursementEvent : IEquatable<TDSReimbursementEvent>, IValidatableObject
@@ -26,14 +26,14 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <summary>
         /// Initializes a new instance of the <see cref="TDSReimbursementEvent" /> class.
         /// </summary>
-        /// <param name="PostedDate">The date and time when the financial event was posted..</param>
-        /// <param name="TdsOrderId">A tax deduction at source (TDS) claim identifier..</param>
-        /// <param name="ReimbursedAmount">The amount of the reimbursement..</param>
-        public TDSReimbursementEvent(DateTime? PostedDate = default(DateTime?), string TdsOrderId = default(string), Currency ReimbursedAmount = default(Currency))
+        /// <param name="postedDate">The date and time when the financial event was posted..</param>
+        /// <param name="tDSOrderId">The Tax-Deducted-at-Source (TDS) identifier..</param>
+        /// <param name="reimbursedAmount">The amount reimbursed..</param>
+        public TDSReimbursementEvent(DateTime? postedDate = default(DateTime?), string tDSOrderId = default(string), Currency reimbursedAmount = default(Currency))
         {
-            this.PostedDate = PostedDate;
-            this.TdsOrderId = TdsOrderId;
-            this.ReimbursedAmount = ReimbursedAmount;
+            this.PostedDate = postedDate;
+            this.TDSOrderId = tDSOrderId;
+            this.ReimbursedAmount = reimbursedAmount;
         }
 
         /// <summary>
@@ -44,16 +44,16 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         public DateTime? PostedDate { get; set; }
 
         /// <summary>
-        /// A tax deduction at source (TDS) claim identifier.
+        /// The Tax-Deducted-at-Source (TDS) identifier.
         /// </summary>
-        /// <value>A tax deduction at source (TDS) claim identifier.</value>
-        [DataMember(Name = "TdsOrderId", EmitDefaultValue = false)]
-        public string TdsOrderId { get; set; }
+        /// <value>The Tax-Deducted-at-Source (TDS) identifier.</value>
+        [DataMember(Name = "TDSOrderId", EmitDefaultValue = false)]
+        public string TDSOrderId { get; set; }
 
         /// <summary>
-        /// The amount of the reimbursement.
+        /// The amount reimbursed.
         /// </summary>
-        /// <value>The amount of the reimbursement.</value>
+        /// <value>The amount reimbursed.</value>
         [DataMember(Name = "ReimbursedAmount", EmitDefaultValue = false)]
         public Currency ReimbursedAmount { get; set; }
 
@@ -66,7 +66,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             var sb = new StringBuilder();
             sb.Append("class TDSReimbursementEvent {\n");
             sb.Append("  PostedDate: ").Append(PostedDate).Append("\n");
-            sb.Append("  TdsOrderId: ").Append(TdsOrderId).Append("\n");
+            sb.Append("  TDSOrderId: ").Append(TDSOrderId).Append("\n");
             sb.Append("  ReimbursedAmount: ").Append(ReimbursedAmount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -76,7 +76,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -108,9 +108,9 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                     this.PostedDate.Equals(input.PostedDate))
                 ) &&
                 (
-                    this.TdsOrderId == input.TdsOrderId ||
-                    (this.TdsOrderId != null &&
-                    this.TdsOrderId.Equals(input.TdsOrderId))
+                    this.TDSOrderId == input.TDSOrderId ||
+                    (this.TDSOrderId != null &&
+                    this.TDSOrderId.Equals(input.TDSOrderId))
                 ) &&
                 (
                     this.ReimbursedAmount == input.ReimbursedAmount ||
@@ -130,8 +130,8 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                 int hashCode = 41;
                 if (this.PostedDate != null)
                     hashCode = hashCode * 59 + this.PostedDate.GetHashCode();
-                if (this.TdsOrderId != null)
-                    hashCode = hashCode * 59 + this.TdsOrderId.GetHashCode();
+                if (this.TDSOrderId != null)
+                    hashCode = hashCode * 59 + this.TDSOrderId.GetHashCode();
                 if (this.ReimbursedAmount != null)
                     hashCode = hashCode * 59 + this.ReimbursedAmount.GetHashCode();
                 return hashCode;

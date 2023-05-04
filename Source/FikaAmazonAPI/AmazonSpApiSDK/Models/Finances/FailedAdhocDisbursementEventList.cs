@@ -18,18 +18,80 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// A list of adjustment event information for the seller&#39;s account.
+    /// Failed ad hoc disbursement event list.
     /// </summary>
     [DataContract]
-    public partial class FailedAdhocDisbursementEventList : List<AdjustmentEvent>, IEquatable<FailedAdhocDisbursementEventList>, IValidatableObject
+    public partial class FailedAdhocDisbursementEventList : IEquatable<FailedAdhocDisbursementEventList>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailedAdhocDisbursementEventList" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        public FailedAdhocDisbursementEventList() : base()
+        /// <param name="fundsTransfersType">The type of fund transfer.   Example \&quot;Refund\&quot;.</param>
+        /// <param name="transferId">The transfer identifier..</param>
+        /// <param name="disbursementId">The disbursement identifier..</param>
+        /// <param name="paymentDisbursementType">The type of payment for disbursement.   Example &#x60;CREDIT_CARD&#x60;.</param>
+        /// <param name="status">The status of the failed &#x60;AdhocDisbursement&#x60;.   Example &#x60;HARD_DECLINED&#x60;.</param>
+        /// <param name="transferAmount">The amount of the Adhoc Disbursement..</param>
+        /// <param name="postedDate">The date and time when the financial event was posted..</param>
+        public FailedAdhocDisbursementEventList(string fundsTransfersType = default(string), string transferId = default(string), string disbursementId = default(string), string paymentDisbursementType = default(string), string status = default(string), Currency transferAmount = default(Currency), DateTime? postedDate = default(DateTime?))
         {
+            this.FundsTransfersType = fundsTransfersType;
+            this.TransferId = transferId;
+            this.DisbursementId = disbursementId;
+            this.PaymentDisbursementType = paymentDisbursementType;
+            this.Status = status;
+            this.TransferAmount = transferAmount;
+            this.PostedDate = postedDate;
         }
+
+        /// <summary>
+        /// The type of fund transfer.   Example \&quot;Refund\&quot;
+        /// </summary>
+        /// <value>The type of fund transfer.   Example \&quot;Refund\&quot;</value>
+        [DataMember(Name = "FundsTransfersType", EmitDefaultValue = false)]
+        public string FundsTransfersType { get; set; }
+
+        /// <summary>
+        /// The transfer identifier.
+        /// </summary>
+        /// <value>The transfer identifier.</value>
+        [DataMember(Name = "TransferId", EmitDefaultValue = false)]
+        public string TransferId { get; set; }
+
+        /// <summary>
+        /// The disbursement identifier.
+        /// </summary>
+        /// <value>The disbursement identifier.</value>
+        [DataMember(Name = "DisbursementId", EmitDefaultValue = false)]
+        public string DisbursementId { get; set; }
+
+        /// <summary>
+        /// The type of payment for disbursement.   Example &#x60;CREDIT_CARD&#x60;
+        /// </summary>
+        /// <value>The type of payment for disbursement.   Example &#x60;CREDIT_CARD&#x60;</value>
+        [DataMember(Name = "PaymentDisbursementType", EmitDefaultValue = false)]
+        public string PaymentDisbursementType { get; set; }
+
+        /// <summary>
+        /// The status of the failed &#x60;AdhocDisbursement&#x60;.   Example &#x60;HARD_DECLINED&#x60;
+        /// </summary>
+        /// <value>The status of the failed &#x60;AdhocDisbursement&#x60;.   Example &#x60;HARD_DECLINED&#x60;</value>
+        [DataMember(Name = "Status", EmitDefaultValue = false)]
+        public string Status { get; set; }
+
+        /// <summary>
+        /// The amount of the Adhoc Disbursement.
+        /// </summary>
+        /// <value>The amount of the Adhoc Disbursement.</value>
+        [DataMember(Name = "TransferAmount", EmitDefaultValue = false)]
+        public Currency TransferAmount { get; set; }
+
+        /// <summary>
+        /// The date and time when the financial event was posted.
+        /// </summary>
+        /// <value>The date and time when the financial event was posted.</value>
+        [DataMember(Name = "PostedDate", EmitDefaultValue = false)]
+        public DateTime? PostedDate { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -39,7 +101,13 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             var sb = new StringBuilder();
             sb.Append("class FailedAdhocDisbursementEventList {\n");
-            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
+            sb.Append("  FundsTransfersType: ").Append(FundsTransfersType).Append("\n");
+            sb.Append("  TransferId: ").Append(TransferId).Append("\n");
+            sb.Append("  DisbursementId: ").Append(DisbursementId).Append("\n");
+            sb.Append("  PaymentDisbursementType: ").Append(PaymentDisbursementType).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  TransferAmount: ").Append(TransferAmount).Append("\n");
+            sb.Append("  PostedDate: ").Append(PostedDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -48,7 +116,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -73,7 +141,42 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             if (input == null)
                 return false;
 
-            return base.Equals(input);
+            return
+                (
+                    this.FundsTransfersType == input.FundsTransfersType ||
+                    (this.FundsTransfersType != null &&
+                    this.FundsTransfersType.Equals(input.FundsTransfersType))
+                ) &&
+                (
+                    this.TransferId == input.TransferId ||
+                    (this.TransferId != null &&
+                    this.TransferId.Equals(input.TransferId))
+                ) &&
+                (
+                    this.DisbursementId == input.DisbursementId ||
+                    (this.DisbursementId != null &&
+                    this.DisbursementId.Equals(input.DisbursementId))
+                ) &&
+                (
+                    this.PaymentDisbursementType == input.PaymentDisbursementType ||
+                    (this.PaymentDisbursementType != null &&
+                    this.PaymentDisbursementType.Equals(input.PaymentDisbursementType))
+                ) &&
+                (
+                    this.Status == input.Status ||
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
+                ) &&
+                (
+                    this.TransferAmount == input.TransferAmount ||
+                    (this.TransferAmount != null &&
+                    this.TransferAmount.Equals(input.TransferAmount))
+                ) &&
+                (
+                    this.PostedDate == input.PostedDate ||
+                    (this.PostedDate != null &&
+                    this.PostedDate.Equals(input.PostedDate))
+                );
         }
 
         /// <summary>
@@ -84,7 +187,21 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.FundsTransfersType != null)
+                    hashCode = hashCode * 59 + this.FundsTransfersType.GetHashCode();
+                if (this.TransferId != null)
+                    hashCode = hashCode * 59 + this.TransferId.GetHashCode();
+                if (this.DisbursementId != null)
+                    hashCode = hashCode * 59 + this.DisbursementId.GetHashCode();
+                if (this.PaymentDisbursementType != null)
+                    hashCode = hashCode * 59 + this.PaymentDisbursementType.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.TransferAmount != null)
+                    hashCode = hashCode * 59 + this.TransferAmount.GetHashCode();
+                if (this.PostedDate != null)
+                    hashCode = hashCode * 59 + this.PostedDate.GetHashCode();
                 return hashCode;
             }
         }

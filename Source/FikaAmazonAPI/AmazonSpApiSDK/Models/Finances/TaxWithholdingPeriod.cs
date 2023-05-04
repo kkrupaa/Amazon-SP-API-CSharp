@@ -9,27 +9,51 @@
  */
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
+//using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// A list of shipment event information.
+    /// Period which taxwithholding on seller&#39;s account is calculated.
     /// </summary>
     [DataContract]
-    public partial class ShipmentSettleEventList : List<ShipmentEvent>, IEquatable<ShipmentSettleEventList>, IValidatableObject
+    public partial class TaxWithholdingPeriod :  IEquatable<TaxWithholdingPeriod>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShipmentSettleEventList" /> class.
+        /// Initializes a new instance of the <see cref="TaxWithholdingPeriod" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        public ShipmentSettleEventList() : base()
+        /// <param name="startDate">Start of the time range..</param>
+        /// <param name="endDate">End of the time range..</param>
+        public TaxWithholdingPeriod(DateTime? startDate = default(DateTime?), DateTime? endDate = default(DateTime?))
         {
+            this.StartDate = startDate;
+            this.EndDate = endDate;
         }
+        
+        /// <summary>
+        /// Start of the time range.
+        /// </summary>
+        /// <value>Start of the time range.</value>
+        [DataMember(Name="StartDate", EmitDefaultValue=false)]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
+        /// End of the time range.
+        /// </summary>
+        /// <value>End of the time range.</value>
+        [DataMember(Name="EndDate", EmitDefaultValue=false)]
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -38,17 +62,18 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ShipmentSettleEventList {\n");
-            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
+            sb.Append("class TaxWithholdingPeriod {\n");
+            sb.Append("  StartDate: ").Append(StartDate).Append("\n");
+            sb.Append("  EndDate: ").Append(EndDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
-
+  
         /// <summary>
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -60,20 +85,30 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as ShipmentSettleEventList);
+            return this.Equals(input as TaxWithholdingPeriod);
         }
 
         /// <summary>
-        /// Returns true if ShipmentSettleEventList instances are equal
+        /// Returns true if TaxWithholdingPeriod instances are equal
         /// </summary>
-        /// <param name="input">Instance of ShipmentSettleEventList to be compared</param>
+        /// <param name="input">Instance of TaxWithholdingPeriod to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ShipmentSettleEventList input)
+        public bool Equals(TaxWithholdingPeriod input)
         {
             if (input == null)
                 return false;
 
-            return base.Equals(input);
+            return 
+                (
+                    this.StartDate == input.StartDate ||
+                    (this.StartDate != null &&
+                    this.StartDate.Equals(input.StartDate))
+                ) && 
+                (
+                    this.EndDate == input.EndDate ||
+                    (this.EndDate != null &&
+                    this.EndDate.Equals(input.EndDate))
+                );
         }
 
         /// <summary>
@@ -84,7 +119,11 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.StartDate != null)
+                    hashCode = hashCode * 59 + this.StartDate.GetHashCode();
+                if (this.EndDate != null)
+                    hashCode = hashCode * 59 + this.EndDate.GetHashCode();
                 return hashCode;
             }
         }

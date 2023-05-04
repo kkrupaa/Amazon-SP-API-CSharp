@@ -18,7 +18,7 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// An adjustment to the seller&#39;s account.
+    /// An event related to a capacity reservation billing charge.
     /// </summary>
     [DataContract]
     public partial class CapacityReservationBillingEvent : IEquatable<CapacityReservationBillingEvent>, IValidatableObject
@@ -26,24 +26,24 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <summary>
         /// Initializes a new instance of the <see cref="CapacityReservationBillingEvent" /> class.
         /// </summary>
-        /// <param name="AdjustmentType">The type of adjustment.  Possible values:  * FBAInventoryReimbursement - An FBA inventory reimbursement to a seller&#39;s account. This occurs if a seller&#39;s inventory is damaged.  * ReserveEvent - A reserve event that is generated at the time of a settlement period closing. This occurs when some money from a seller&#39;s account is held back.  * PostageBilling - The amount paid by a seller for shipping labels.  * PostageRefund - The reimbursement of shipping labels purchased for orders that were canceled or refunded.  * LostOrDamagedReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account for a package that we lost or damaged.  * CanceledButPickedUpReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account. This occurs when a package is picked up and the order is subsequently canceled. This value is used only in the India marketplace.  * ReimbursementClawback - An Amazon Easy Ship reimbursement clawback from a seller&#39;s account. This occurs when a prior reimbursement is reversed. This value is used only in the India marketplace.  * SellerRewards - An award credited to a seller&#39;s account for their participation in an offer in the Seller Rewards program. Applies only to the India marketplace..</param>
-        /// <param name="PostedDate">The date and time when the financial event was posted..</param>
-        /// <param name="AdjustmentAmount">The amount adjusted as part of this event..</param>
-        /// <param name="AdjustmentItemList">A list of information about adjustments to an account..</param>
-        public CapacityReservationBillingEvent(string AdjustmentType = default(string), DateTime? PostedDate = default(DateTime?), Currency AdjustmentAmount = default(Currency), AdjustmentItemList AdjustmentItemList = default(AdjustmentItemList))
+        /// <param name="transactionType">Indicates the type of transaction. For example, FBA Inventory Fee.</param>
+        /// <param name="postedDate">The date and time when the financial event was posted..</param>
+        /// <param name="description">A short description of the capacity reservation billing event..</param>
+        /// <param name="transactionAmount">The amount of the capacity reservation billing event..</param>
+        public CapacityReservationBillingEvent(string transactionType = default(string), DateTime? postedDate = default(DateTime?), string description = default(string), Currency transactionAmount = default(Currency))
         {
-            this.AdjustmentType = AdjustmentType;
-            this.PostedDate = PostedDate;
-            this.AdjustmentAmount = AdjustmentAmount;
-            this.AdjustmentItemList = AdjustmentItemList;
+            this.TransactionType = transactionType;
+            this.PostedDate = postedDate;
+            this.Description = description;
+            this.TransactionAmount = transactionAmount;
         }
 
         /// <summary>
-        /// The type of adjustment.  Possible values:  * FBAInventoryReimbursement - An FBA inventory reimbursement to a seller&#39;s account. This occurs if a seller&#39;s inventory is damaged.  * ReserveEvent - A reserve event that is generated at the time of a settlement period closing. This occurs when some money from a seller&#39;s account is held back.  * PostageBilling - The amount paid by a seller for shipping labels.  * PostageRefund - The reimbursement of shipping labels purchased for orders that were canceled or refunded.  * LostOrDamagedReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account for a package that we lost or damaged.  * CanceledButPickedUpReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account. This occurs when a package is picked up and the order is subsequently canceled. This value is used only in the India marketplace.  * ReimbursementClawback - An Amazon Easy Ship reimbursement clawback from a seller&#39;s account. This occurs when a prior reimbursement is reversed. This value is used only in the India marketplace.  * SellerRewards - An award credited to a seller&#39;s account for their participation in an offer in the Seller Rewards program. Applies only to the India marketplace.
+        /// Indicates the type of transaction. For example, FBA Inventory Fee
         /// </summary>
-        /// <value>The type of adjustment.  Possible values:  * FBAInventoryReimbursement - An FBA inventory reimbursement to a seller&#39;s account. This occurs if a seller&#39;s inventory is damaged.  * ReserveEvent - A reserve event that is generated at the time of a settlement period closing. This occurs when some money from a seller&#39;s account is held back.  * PostageBilling - The amount paid by a seller for shipping labels.  * PostageRefund - The reimbursement of shipping labels purchased for orders that were canceled or refunded.  * LostOrDamagedReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account for a package that we lost or damaged.  * CanceledButPickedUpReimbursement - An Amazon Easy Ship reimbursement to a seller&#39;s account. This occurs when a package is picked up and the order is subsequently canceled. This value is used only in the India marketplace.  * ReimbursementClawback - An Amazon Easy Ship reimbursement clawback from a seller&#39;s account. This occurs when a prior reimbursement is reversed. This value is used only in the India marketplace.  * SellerRewards - An award credited to a seller&#39;s account for their participation in an offer in the Seller Rewards program. Applies only to the India marketplace.</value>
-        [DataMember(Name = "AdjustmentType", EmitDefaultValue = false)]
-        public string AdjustmentType { get; set; }
+        /// <value>Indicates the type of transaction. For example, FBA Inventory Fee</value>
+        [DataMember(Name = "TransactionType", EmitDefaultValue = false)]
+        public string TransactionType { get; set; }
 
         /// <summary>
         /// The date and time when the financial event was posted.
@@ -53,18 +53,18 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         public DateTime? PostedDate { get; set; }
 
         /// <summary>
-        /// The amount adjusted as part of this event.
+        /// A short description of the capacity reservation billing event.
         /// </summary>
-        /// <value>The amount adjusted as part of this event.</value>
-        [DataMember(Name = "AdjustmentAmount", EmitDefaultValue = false)]
-        public Currency AdjustmentAmount { get; set; }
+        /// <value>A short description of the capacity reservation billing event.</value>
+        [DataMember(Name = "Description", EmitDefaultValue = false)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// A list of information about adjustments to an account.
+        /// The amount of the capacity reservation billing event.
         /// </summary>
-        /// <value>A list of information about adjustments to an account.</value>
-        [DataMember(Name = "AdjustmentItemList", EmitDefaultValue = false)]
-        public AdjustmentItemList AdjustmentItemList { get; set; }
+        /// <value>The amount of the capacity reservation billing event.</value>
+        [DataMember(Name = "TransactionAmount", EmitDefaultValue = false)]
+        public Currency TransactionAmount { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -74,10 +74,10 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         {
             var sb = new StringBuilder();
             sb.Append("class CapacityReservationBillingEvent {\n");
-            sb.Append("  AdjustmentType: ").Append(AdjustmentType).Append("\n");
+            sb.Append("  TransactionType: ").Append(TransactionType).Append("\n");
             sb.Append("  PostedDate: ").Append(PostedDate).Append("\n");
-            sb.Append("  AdjustmentAmount: ").Append(AdjustmentAmount).Append("\n");
-            sb.Append("  AdjustmentItemList: ").Append(AdjustmentItemList).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  TransactionAmount: ").Append(TransactionAmount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -86,7 +86,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -113,9 +113,9 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 
             return
                 (
-                    this.AdjustmentType == input.AdjustmentType ||
-                    (this.AdjustmentType != null &&
-                    this.AdjustmentType.Equals(input.AdjustmentType))
+                    this.TransactionType == input.TransactionType ||
+                    (this.TransactionType != null &&
+                    this.TransactionType.Equals(input.TransactionType))
                 ) &&
                 (
                     this.PostedDate == input.PostedDate ||
@@ -123,14 +123,14 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                     this.PostedDate.Equals(input.PostedDate))
                 ) &&
                 (
-                    this.AdjustmentAmount == input.AdjustmentAmount ||
-                    (this.AdjustmentAmount != null &&
-                    this.AdjustmentAmount.Equals(input.AdjustmentAmount))
+                    this.Description == input.Description ||
+                    (this.Description != null &&
+                    this.Description.Equals(input.Description))
                 ) &&
                 (
-                    this.AdjustmentItemList == input.AdjustmentItemList ||
-                    (this.AdjustmentItemList != null &&
-                    this.AdjustmentItemList.Equals(input.AdjustmentItemList))
+                    this.TransactionAmount == input.TransactionAmount ||
+                    (this.TransactionAmount != null &&
+                    this.TransactionAmount.Equals(input.TransactionAmount))
                 );
         }
 
@@ -143,14 +143,14 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AdjustmentType != null)
-                    hashCode = hashCode * 59 + this.AdjustmentType.GetHashCode();
+                if (this.TransactionType != null)
+                    hashCode = hashCode * 59 + this.TransactionType.GetHashCode();
                 if (this.PostedDate != null)
                     hashCode = hashCode * 59 + this.PostedDate.GetHashCode();
-                if (this.AdjustmentAmount != null)
-                    hashCode = hashCode * 59 + this.AdjustmentAmount.GetHashCode();
-                if (this.AdjustmentItemList != null)
-                    hashCode = hashCode * 59 + this.AdjustmentItemList.GetHashCode();
+                if (this.Description != null)
+                    hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.TransactionAmount != null)
+                    hashCode = hashCode * 59 + this.TransactionAmount.GetHashCode();
                 return hashCode;
             }
         }

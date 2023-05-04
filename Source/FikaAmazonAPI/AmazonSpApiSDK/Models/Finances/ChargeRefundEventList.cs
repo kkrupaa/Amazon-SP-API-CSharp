@@ -18,10 +18,10 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// A list of adjustment event information for the seller&#39;s account.
+    /// A list of charge refund events.
     /// </summary>
     [DataContract]
-    public partial class ChargeRefundEventList : List<AdjustmentEvent>, IEquatable<ChargeRefundEventList>, IValidatableObject
+    public partial class ChargeRefundEventList : List<ChargeRefundEvent>, IEquatable<ChargeRefundEventList>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ChargeRefundEventList" /> class.

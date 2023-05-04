@@ -26,18 +26,18 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <summary>
         /// Initializes a new instance of the <see cref="TrialShipmentEvent" /> class.
         /// </summary>
-        /// <param name="AmazonOrderId">An Amazon-defined identifier for an order..</param>
-        /// <param name="FinancialEventGroupId">The identifier of the financial event group..</param>
-        /// <param name="PostedDate">The date and time when the financial event was posted..</param>
-        /// <param name="SKU">The seller SKU of the item. The seller SKU is qualified by the seller&#39;s seller ID, which is included with every call to the Selling Partner API..</param>
-        /// <param name="FeeList">A list of fees charged by Amazon for trial shipments..</param>
-        public TrialShipmentEvent(string AmazonOrderId = default(string), string FinancialEventGroupId = default(string), DateTime? PostedDate = default(DateTime?), string SKU = default(string), FeeComponentList FeeList = default(FeeComponentList))
+        /// <param name="amazonOrderId">An Amazon-defined identifier for an order..</param>
+        /// <param name="financialEventGroupId">The identifier of the financial event group..</param>
+        /// <param name="postedDate">The date and time when the financial event was posted..</param>
+        /// <param name="sKU">The seller SKU of the item. The seller SKU is qualified by the seller&#39;s seller ID, which is included with every call to the Selling Partner API..</param>
+        /// <param name="feeList">A list of fees charged by Amazon for trial shipments..</param>
+        public TrialShipmentEvent(string amazonOrderId = default(string), string financialEventGroupId = default(string), DateTime? postedDate = default(DateTime?), string sKU = default(string), FeeComponentList feeList = default(FeeComponentList))
         {
-            this.AmazonOrderId = AmazonOrderId;
-            this.FinancialEventGroupId = FinancialEventGroupId;
-            this.PostedDate = PostedDate;
-            this.SKU = SKU;
-            this.FeeList = FeeList;
+            this.AmazonOrderId = amazonOrderId;
+            this.FinancialEventGroupId = financialEventGroupId;
+            this.PostedDate = postedDate;
+            this.SKU = sKU;
+            this.FeeList = feeList;
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }

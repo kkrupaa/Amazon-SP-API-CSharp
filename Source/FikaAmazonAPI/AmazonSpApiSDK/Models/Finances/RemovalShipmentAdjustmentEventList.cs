@@ -18,10 +18,10 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
 {
     /// <summary>
-    /// A list of adjustment event information for the seller&#39;s account.
+    /// A comma-delimited list of Removal shipmentAdjustment details for FBA inventory.
     /// </summary>
     [DataContract]
-    public partial class RemovalShipmentAdjustmentEventList : List<AdjustmentEvent>, IEquatable<RemovalShipmentAdjustmentEventList>, IValidatableObject
+    public partial class RemovalShipmentAdjustmentEventList : List<RemovalShipmentAdjustmentEvent>, IEquatable<RemovalShipmentAdjustmentEventList>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RemovalShipmentAdjustmentEventList" /> class.
