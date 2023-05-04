@@ -26,79 +26,74 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <summary>
         /// Initializes a new instance of the <see cref="FinancialEvents" /> class.
         /// </summary>
-        /// <param name="ShipmentEventList">A list of shipment events..</param>
-        /// <param name="RefundEventList">A list of refund events..</param>
-        /// <param name="GuaranteeClaimEventList">A list of guarantee claim events..</param>
-        /// <param name="ChargebackEventList">A list of chargeback events..</param>
-        /// <param name="PayWithAmazonEventList">PayWithAmazonEventList.</param>
-        /// <param name="ServiceProviderCreditEventList">ServiceProviderCreditEventList.</param>
-        /// <param name="RetrochargeEventList">RetrochargeEventList.</param>
-        /// <param name="RentalTransactionEventList">RentalTransactionEventList.</param>
-        /// <param name="ProductAdsPaymentEventList">ProductAdsPaymentEventList.</param>
-        /// <param name="ServiceFeeEventList">ServiceFeeEventList.</param>
-        /// <param name="SellerDealPaymentEventList">SellerDealPaymentEventList.</param>
-        /// <param name="DebtRecoveryEventList">DebtRecoveryEventList.</param>
-        /// <param name="LoanServicingEventList">LoanServicingEventList.</param>
-        /// <param name="AdjustmentEventList">AdjustmentEventList.</param>
-        /// <param name="SAFETReimbursementEventList">SAFETReimbursementEventList.</param>
-        /// <param name="SellerReviewEnrollmentPaymentEventList">SellerReviewEnrollmentPaymentEventList.</param>
-        /// <param name="FBALiquidationEventList">FBALiquidationEventList.</param>
-        /// <param name="CouponPaymentEventList">CouponPaymentEventList.</param>
-        /// <param name="ImagingServicesFeeEventList">ImagingServicesFeeEventList.</param>
-        /// <param name="NetworkComminglingTransactionEventList">NetworkComminglingTransactionEventList.</param>
-        /// <param name="AffordabilityExpenseEventList">AffordabilityExpenseEventList.</param>
-        /// <param name="AffordabilityExpenseReversalEventList">AffordabilityExpenseReversalEventList.</param>
-        /// <param name="TrialShipmentEventList">TrialShipmentEventList.</param>
-        /// <param name="ShipmentSettleEventList">ShipmentSettleEventList.</param>
-        /// <param name="RemovalShipmentEventList">RemovalShipmentEventList.</param>
-        /// <param name="RemovalShipmentAdjustmentEventList">RemovalShipmentAdjustmentEventList.</param>
-        /// <param name="TDSReimbursementEventList">TDSReimbursementEventList.</param>
-        /// <param name="AdhocDisbursementEventList">AdhocDisbursementEventList.</param>
-        /// <param name="TaxWithholdingEventList">TaxWithholdingEventList.</param>
-        /// <param name="ChargeRefundEventList">ChargeRefundEventList.</param>
-        /// <param name="FailedAdhocDisbursementEventList">FailedAdhocDisbursementEventList.</param>
-        /// <param name="ValueAddedServiceChargeEventList">ValueAddedServiceChargeEventList.</param>
-        /// <param name="CapacityReservationBillingEventList">CapacityReservationBillingEventList.</param>
-
-
-        public FinancialEvents() { }
-        public FinancialEvents(ShipmentEventList ShipmentEventList = default(ShipmentEventList), ShipmentEventList RefundEventList = default(ShipmentEventList), ShipmentEventList GuaranteeClaimEventList = default(ShipmentEventList), ShipmentEventList ChargebackEventList = default(ShipmentEventList), PayWithAmazonEventList PayWithAmazonEventList = default(PayWithAmazonEventList), SolutionProviderCreditEventList ServiceProviderCreditEventList = default(SolutionProviderCreditEventList), RetrochargeEventList RetrochargeEventList = default(RetrochargeEventList), RentalTransactionEventList RentalTransactionEventList = default(RentalTransactionEventList), ProductAdsPaymentEventList ProductAdsPaymentEventList = default(ProductAdsPaymentEventList), ServiceFeeEventList ServiceFeeEventList = default(ServiceFeeEventList), SellerDealPaymentEventList SellerDealPaymentEventList = default(SellerDealPaymentEventList), DebtRecoveryEventList DebtRecoveryEventList = default(DebtRecoveryEventList), LoanServicingEventList LoanServicingEventList = default(LoanServicingEventList), AdjustmentEventList AdjustmentEventList = default(AdjustmentEventList), SAFETReimbursementEventList SAFETReimbursementEventList = default(SAFETReimbursementEventList), SellerReviewEnrollmentPaymentEventList SellerReviewEnrollmentPaymentEventList = default(SellerReviewEnrollmentPaymentEventList), FBALiquidationEventList FBALiquidationEventList = default(FBALiquidationEventList), CouponPaymentEventList CouponPaymentEventList = default(CouponPaymentEventList), ImagingServicesFeeEventList ImagingServicesFeeEventList = default(ImagingServicesFeeEventList), NetworkComminglingTransactionEventList NetworkComminglingTransactionEventList = default(NetworkComminglingTransactionEventList), AffordabilityExpenseEventList AffordabilityExpenseEventList = default(AffordabilityExpenseEventList), AffordabilityExpenseEventList AffordabilityExpenseReversalEventList = default(AffordabilityExpenseEventList), TrialShipmentEventList TrialShipmentEventList = default(TrialShipmentEventList), ShipmentSettleEventList ShipmentSettleEventList = default(ShipmentSettleEventList), RemovalShipmentEventList RemovalShipmentEventList = default(RemovalShipmentEventList), RemovalShipmentAdjustmentEventList RemovalShipmentAdjustmentEventList = default(RemovalShipmentAdjustmentEventList), TDSReimbursementEventList TDSReimbursementEventList = default(TDSReimbursementEventList), AdhocDisbursementEventList AdhocDisbursementEventList = default(AdhocDisbursementEventList), TaxWithholdingEventList TaxWithholdingEventList = default(TaxWithholdingEventList), ChargeRefundEventList ChargeRefundEventList = default(ChargeRefundEventList), FailedAdhocDisbursementEventList FailedAdhocDisbursementEventList = default(FailedAdhocDisbursementEventList), ValueAddedServiceChargeEventList ValueAddedServiceChargeEventList = default(ValueAddedServiceChargeEventList), CapacityReservationBillingEventList CapacityReservationBillingEventList = default(CapacityReservationBillingEventList))
+        /// <param name="shipmentEventList">A list of shipment events..</param>
+        /// <param name="shipmentSettleEventList">A list of Shipment Settle events..</param>
+        /// <param name="refundEventList">A list of refund events..</param>
+        /// <param name="guaranteeClaimEventList">A list of guarantee claim events..</param>
+        /// <param name="chargebackEventList">A list of chargeback events..</param>
+        /// <param name="payWithAmazonEventList">payWithAmazonEventList.</param>
+        /// <param name="serviceProviderCreditEventList">serviceProviderCreditEventList.</param>
+        /// <param name="retrochargeEventList">retrochargeEventList.</param>
+        /// <param name="rentalTransactionEventList">rentalTransactionEventList.</param>
+        /// <param name="productAdsPaymentEventList">productAdsPaymentEventList.</param>
+        /// <param name="serviceFeeEventList">serviceFeeEventList.</param>
+        /// <param name="sellerDealPaymentEventList">sellerDealPaymentEventList.</param>
+        /// <param name="debtRecoveryEventList">debtRecoveryEventList.</param>
+        /// <param name="loanServicingEventList">loanServicingEventList.</param>
+        /// <param name="adjustmentEventList">adjustmentEventList.</param>
+        /// <param name="sAFETReimbursementEventList">sAFETReimbursementEventList.</param>
+        /// <param name="sellerReviewEnrollmentPaymentEventList">sellerReviewEnrollmentPaymentEventList.</param>
+        /// <param name="fBALiquidationEventList">fBALiquidationEventList.</param>
+        /// <param name="couponPaymentEventList">couponPaymentEventList.</param>
+        /// <param name="imagingServicesFeeEventList">imagingServicesFeeEventList.</param>
+        /// <param name="networkComminglingTransactionEventList">networkComminglingTransactionEventList.</param>
+        /// <param name="affordabilityExpenseEventList">affordabilityExpenseEventList.</param>
+        /// <param name="affordabilityExpenseReversalEventList">affordabilityExpenseReversalEventList.</param>
+        /// <param name="removalShipmentEventList">removalShipmentEventList.</param>
+        /// <param name="removalShipmentAdjustmentEventList">removalShipmentAdjustmentEventList.</param>
+        /// <param name="trialShipmentEventList">trialShipmentEventList.</param>
+        /// <param name="tDSReimbursementEventList">tDSReimbursementEventList.</param>
+        /// <param name="adhocDisbursementEventList">adhocDisbursementEventList.</param>
+        /// <param name="taxWithholdingEventList">taxWithholdingEventList.</param>
+        /// <param name="chargeRefundEventList">chargeRefundEventList.</param>
+        /// <param name="failedAdhocDisbursementEventList">failedAdhocDisbursementEventList.</param>
+        /// <param name="valueAddedServiceChargeEventList">valueAddedServiceChargeEventList.</param>
+        /// <param name="capacityReservationBillingEventList">capacityReservationBillingEventList.</param>
+        public FinancialEvents(ShipmentEventList shipmentEventList = default(ShipmentEventList), ShipmentSettleEventList shipmentSettleEventList = default(ShipmentSettleEventList), ShipmentEventList refundEventList = default(ShipmentEventList), ShipmentEventList guaranteeClaimEventList = default(ShipmentEventList), ShipmentEventList chargebackEventList = default(ShipmentEventList), PayWithAmazonEventList payWithAmazonEventList = default(PayWithAmazonEventList), SolutionProviderCreditEventList serviceProviderCreditEventList = default(SolutionProviderCreditEventList), RetrochargeEventList retrochargeEventList = default(RetrochargeEventList), RentalTransactionEventList rentalTransactionEventList = default(RentalTransactionEventList), ProductAdsPaymentEventList productAdsPaymentEventList = default(ProductAdsPaymentEventList), ServiceFeeEventList serviceFeeEventList = default(ServiceFeeEventList), SellerDealPaymentEventList sellerDealPaymentEventList = default(SellerDealPaymentEventList), DebtRecoveryEventList debtRecoveryEventList = default(DebtRecoveryEventList), LoanServicingEventList loanServicingEventList = default(LoanServicingEventList), AdjustmentEventList adjustmentEventList = default(AdjustmentEventList), SAFETReimbursementEventList sAFETReimbursementEventList = default(SAFETReimbursementEventList), SellerReviewEnrollmentPaymentEventList sellerReviewEnrollmentPaymentEventList = default(SellerReviewEnrollmentPaymentEventList), FBALiquidationEventList fBALiquidationEventList = default(FBALiquidationEventList), CouponPaymentEventList couponPaymentEventList = default(CouponPaymentEventList), ImagingServicesFeeEventList imagingServicesFeeEventList = default(ImagingServicesFeeEventList), NetworkComminglingTransactionEventList networkComminglingTransactionEventList = default(NetworkComminglingTransactionEventList), AffordabilityExpenseEventList affordabilityExpenseEventList = default(AffordabilityExpenseEventList), AffordabilityExpenseEventList affordabilityExpenseReversalEventList = default(AffordabilityExpenseEventList), RemovalShipmentEventList removalShipmentEventList = default(RemovalShipmentEventList), RemovalShipmentAdjustmentEventList removalShipmentAdjustmentEventList = default(RemovalShipmentAdjustmentEventList), TrialShipmentEventList trialShipmentEventList = default(TrialShipmentEventList), TDSReimbursementEventList tDSReimbursementEventList = default(TDSReimbursementEventList), AdhocDisbursementEventList adhocDisbursementEventList = default(AdhocDisbursementEventList), TaxWithholdingEventList taxWithholdingEventList = default(TaxWithholdingEventList), ChargeRefundEventList chargeRefundEventList = default(ChargeRefundEventList), FailedAdhocDisbursementEventList failedAdhocDisbursementEventList = default(FailedAdhocDisbursementEventList), ValueAddedServiceChargeEventList valueAddedServiceChargeEventList = default(ValueAddedServiceChargeEventList), CapacityReservationBillingEventList capacityReservationBillingEventList = default(CapacityReservationBillingEventList))
         {
-            this.ShipmentEventList = ShipmentEventList;
-            this.RefundEventList = RefundEventList;
-            this.GuaranteeClaimEventList = GuaranteeClaimEventList;
-            this.ChargebackEventList = ChargebackEventList;
-            this.PayWithAmazonEventList = PayWithAmazonEventList;
-            this.ServiceProviderCreditEventList = ServiceProviderCreditEventList;
-            this.RetrochargeEventList = RetrochargeEventList;
-            this.RentalTransactionEventList = RentalTransactionEventList;
-            this.ProductAdsPaymentEventList = ProductAdsPaymentEventList;
-            this.ServiceFeeEventList = ServiceFeeEventList;
-            this.SellerDealPaymentEventList = SellerDealPaymentEventList;
-            this.DebtRecoveryEventList = DebtRecoveryEventList;
-            this.LoanServicingEventList = LoanServicingEventList;
-            this.AdjustmentEventList = AdjustmentEventList;
-            this.SAFETReimbursementEventList = SAFETReimbursementEventList;
-            this.SellerReviewEnrollmentPaymentEventList = SellerReviewEnrollmentPaymentEventList;
-            this.FBALiquidationEventList = FBALiquidationEventList;
-            this.CouponPaymentEventList = CouponPaymentEventList;
-            this.ImagingServicesFeeEventList = ImagingServicesFeeEventList;
-            this.NetworkComminglingTransactionEventList = NetworkComminglingTransactionEventList;
-            this.AffordabilityExpenseEventList = AffordabilityExpenseEventList;
-            this.AffordabilityExpenseReversalEventList = AffordabilityExpenseReversalEventList;
-            this.TrialShipmentEventList = TrialShipmentEventList;
-            this.ShipmentSettleEventList = ShipmentSettleEventList;
-            this.RemovalShipmentEventList = RemovalShipmentEventList;
-            this.RemovalShipmentAdjustmentEventList = RemovalShipmentAdjustmentEventList;
-            this.TDSReimbursementEventList = TDSReimbursementEventList;
-            this.AdhocDisbursementEventList = AdhocDisbursementEventList;
-            this.TaxWithholdingEventList = TaxWithholdingEventList;
-            this.ChargeRefundEventList = ChargeRefundEventList;
-            this.FailedAdhocDisbursementEventList = FailedAdhocDisbursementEventList;
-            this.ValueAddedServiceChargeEventList = ValueAddedServiceChargeEventList;
-            this.CapacityReservationBillingEventList = CapacityReservationBillingEventList;
-
-
+            this.ShipmentEventList = shipmentEventList;
+            this.ShipmentSettleEventList = shipmentSettleEventList;
+            this.RefundEventList = refundEventList;
+            this.GuaranteeClaimEventList = guaranteeClaimEventList;
+            this.ChargebackEventList = chargebackEventList;
+            this.PayWithAmazonEventList = payWithAmazonEventList;
+            this.ServiceProviderCreditEventList = serviceProviderCreditEventList;
+            this.RetrochargeEventList = retrochargeEventList;
+            this.RentalTransactionEventList = rentalTransactionEventList;
+            this.ProductAdsPaymentEventList = productAdsPaymentEventList;
+            this.ServiceFeeEventList = serviceFeeEventList;
+            this.SellerDealPaymentEventList = sellerDealPaymentEventList;
+            this.DebtRecoveryEventList = debtRecoveryEventList;
+            this.LoanServicingEventList = loanServicingEventList;
+            this.AdjustmentEventList = adjustmentEventList;
+            this.SAFETReimbursementEventList = sAFETReimbursementEventList;
+            this.SellerReviewEnrollmentPaymentEventList = sellerReviewEnrollmentPaymentEventList;
+            this.FBALiquidationEventList = fBALiquidationEventList;
+            this.CouponPaymentEventList = couponPaymentEventList;
+            this.ImagingServicesFeeEventList = imagingServicesFeeEventList;
+            this.NetworkComminglingTransactionEventList = networkComminglingTransactionEventList;
+            this.AffordabilityExpenseEventList = affordabilityExpenseEventList;
+            this.AffordabilityExpenseReversalEventList = affordabilityExpenseReversalEventList;
+            this.RemovalShipmentEventList = removalShipmentEventList;
+            this.RemovalShipmentAdjustmentEventList = removalShipmentAdjustmentEventList;
+            this.TrialShipmentEventList = trialShipmentEventList;
+            this.TDSReimbursementEventList = tDSReimbursementEventList;
+            this.AdhocDisbursementEventList = adhocDisbursementEventList;
+            this.TaxWithholdingEventList = taxWithholdingEventList;
+            this.ChargeRefundEventList = chargeRefundEventList;
+            this.FailedAdhocDisbursementEventList = failedAdhocDisbursementEventList;
+            this.ValueAddedServiceChargeEventList = valueAddedServiceChargeEventList;
+            this.CapacityReservationBillingEventList = capacityReservationBillingEventList;
         }
 
         /// <summary>
@@ -107,6 +102,13 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <value>A list of shipment events.</value>
         [DataMember(Name = "ShipmentEventList", EmitDefaultValue = false)]
         public ShipmentEventList ShipmentEventList { get; set; }
+
+        /// <summary>
+        /// A list of Shipment Settle events.
+        /// </summary>
+        /// <value>A list of Shipment Settle events.</value>
+        [DataMember(Name = "ShipmentSettleEventList", EmitDefaultValue = false)]
+        public ShipmentSettleEventList ShipmentSettleEventList { get; set; }
 
         /// <summary>
         /// A list of refund events.
@@ -238,18 +240,6 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         public AffordabilityExpenseEventList AffordabilityExpenseReversalEventList { get; set; }
 
         /// <summary>
-        /// Gets or Sets TrialShipmentEventList
-        /// </summary>
-        [DataMember(Name = "TrialShipmentEventList", EmitDefaultValue = false)]
-        public TrialShipmentEventList TrialShipmentEventList { get; set; }
-
-        /// <summary>
-        /// Gets or Sets ShipmentSettleEventList
-        /// </summary>
-        [DataMember(Name = "ShipmentSettleEventList", EmitDefaultValue = false)]
-        public ShipmentSettleEventList ShipmentSettleEventList { get; set; }
-
-        /// <summary>
         /// Gets or Sets RemovalShipmentEventList
         /// </summary>
         [DataMember(Name = "RemovalShipmentEventList", EmitDefaultValue = false)]
@@ -260,6 +250,12 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// </summary>
         [DataMember(Name = "RemovalShipmentAdjustmentEventList", EmitDefaultValue = false)]
         public RemovalShipmentAdjustmentEventList RemovalShipmentAdjustmentEventList { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TrialShipmentEventList
+        /// </summary>
+        [DataMember(Name = "TrialShipmentEventList", EmitDefaultValue = false)]
+        public TrialShipmentEventList TrialShipmentEventList { get; set; }
 
         /// <summary>
         /// Gets or Sets TDSReimbursementEventList
@@ -300,7 +296,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// <summary>
         /// Gets or Sets CapacityReservationBillingEventList
         /// </summary>
-        [DataMember(Name = "ValueAddedServiceChargeEventList", EmitDefaultValue = false)]
+        [DataMember(Name = "CapacityReservationBillingEventList", EmitDefaultValue = false)]
         public CapacityReservationBillingEventList CapacityReservationBillingEventList { get; set; }
 
         /// <summary>
@@ -312,6 +308,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             var sb = new StringBuilder();
             sb.Append("class FinancialEvents {\n");
             sb.Append("  ShipmentEventList: ").Append(ShipmentEventList).Append("\n");
+            sb.Append("  ShipmentSettleEventList: ").Append(ShipmentSettleEventList).Append("\n");
             sb.Append("  RefundEventList: ").Append(RefundEventList).Append("\n");
             sb.Append("  GuaranteeClaimEventList: ").Append(GuaranteeClaimEventList).Append("\n");
             sb.Append("  ChargebackEventList: ").Append(ChargebackEventList).Append("\n");
@@ -333,10 +330,9 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
             sb.Append("  NetworkComminglingTransactionEventList: ").Append(NetworkComminglingTransactionEventList).Append("\n");
             sb.Append("  AffordabilityExpenseEventList: ").Append(AffordabilityExpenseEventList).Append("\n");
             sb.Append("  AffordabilityExpenseReversalEventList: ").Append(AffordabilityExpenseReversalEventList).Append("\n");
-            sb.Append("  TrialShipmentEventList: ").Append(TrialShipmentEventList).Append("\n");
-            sb.Append("  ShipmentSettleEventList: ").Append(ShipmentSettleEventList).Append("\n");
             sb.Append("  RemovalShipmentEventList: ").Append(RemovalShipmentEventList).Append("\n");
             sb.Append("  RemovalShipmentAdjustmentEventList: ").Append(RemovalShipmentAdjustmentEventList).Append("\n");
+            sb.Append("  TrialShipmentEventList: ").Append(TrialShipmentEventList).Append("\n");
             sb.Append("  TDSReimbursementEventList: ").Append(TDSReimbursementEventList).Append("\n");
             sb.Append("  AdhocDisbursementEventList: ").Append(AdhocDisbursementEventList).Append("\n");
             sb.Append("  TaxWithholdingEventList: ").Append(TaxWithholdingEventList).Append("\n");
@@ -352,7 +348,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -382,6 +378,11 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                     this.ShipmentEventList == input.ShipmentEventList ||
                     (this.ShipmentEventList != null &&
                     this.ShipmentEventList.Equals(input.ShipmentEventList))
+                ) &&
+                (
+                    this.ShipmentSettleEventList == input.ShipmentSettleEventList ||
+                    (this.ShipmentSettleEventList != null &&
+                    this.ShipmentSettleEventList.Equals(input.ShipmentSettleEventList))
                 ) &&
                 (
                     this.RefundEventList == input.RefundEventList ||
@@ -489,16 +490,6 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                     this.AffordabilityExpenseReversalEventList.Equals(input.AffordabilityExpenseReversalEventList))
                 ) &&
                 (
-                    this.TrialShipmentEventList == input.TrialShipmentEventList ||
-                    (this.TrialShipmentEventList != null &&
-                    this.TrialShipmentEventList.Equals(input.TrialShipmentEventList))
-                ) &&
-                (
-                    this.ShipmentSettleEventList == input.ShipmentSettleEventList ||
-                    (this.ShipmentSettleEventList != null &&
-                    this.ShipmentSettleEventList.Equals(input.ShipmentSettleEventList))
-                ) &&
-                (
                     this.RemovalShipmentEventList == input.RemovalShipmentEventList ||
                     (this.RemovalShipmentEventList != null &&
                     this.RemovalShipmentEventList.Equals(input.RemovalShipmentEventList))
@@ -507,6 +498,11 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                     this.RemovalShipmentAdjustmentEventList == input.RemovalShipmentAdjustmentEventList ||
                     (this.RemovalShipmentAdjustmentEventList != null &&
                     this.RemovalShipmentAdjustmentEventList.Equals(input.RemovalShipmentAdjustmentEventList))
+                ) &&
+                (
+                    this.TrialShipmentEventList == input.TrialShipmentEventList ||
+                    (this.TrialShipmentEventList != null &&
+                    this.TrialShipmentEventList.Equals(input.TrialShipmentEventList))
                 ) &&
                 (
                     this.TDSReimbursementEventList == input.TDSReimbursementEventList ||
@@ -556,6 +552,8 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                 int hashCode = 41;
                 if (this.ShipmentEventList != null)
                     hashCode = hashCode * 59 + this.ShipmentEventList.GetHashCode();
+                if (this.ShipmentSettleEventList != null)
+                    hashCode = hashCode * 59 + this.ShipmentSettleEventList.GetHashCode();
                 if (this.RefundEventList != null)
                     hashCode = hashCode * 59 + this.RefundEventList.GetHashCode();
                 if (this.GuaranteeClaimEventList != null)
@@ -598,14 +596,12 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Finances
                     hashCode = hashCode * 59 + this.AffordabilityExpenseEventList.GetHashCode();
                 if (this.AffordabilityExpenseReversalEventList != null)
                     hashCode = hashCode * 59 + this.AffordabilityExpenseReversalEventList.GetHashCode();
-                if (this.TrialShipmentEventList != null)
-                    hashCode = hashCode * 59 + this.TrialShipmentEventList.GetHashCode();
-                if (this.ShipmentSettleEventList != null)
-                    hashCode = hashCode * 59 + this.ShipmentSettleEventList.GetHashCode();
                 if (this.RemovalShipmentEventList != null)
                     hashCode = hashCode * 59 + this.RemovalShipmentEventList.GetHashCode();
                 if (this.RemovalShipmentAdjustmentEventList != null)
                     hashCode = hashCode * 59 + this.RemovalShipmentAdjustmentEventList.GetHashCode();
+                if (this.TrialShipmentEventList != null)
+                    hashCode = hashCode * 59 + this.TrialShipmentEventList.GetHashCode();
                 if (this.TDSReimbursementEventList != null)
                     hashCode = hashCode * 59 + this.TDSReimbursementEventList.GetHashCode();
                 if (this.AdhocDisbursementEventList != null)
