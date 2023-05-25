@@ -38,7 +38,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// <param name="palletList">palletList.</param>
         /// <param name="totalWeight">The total weight of the shipment..</param>
         /// <param name="sellerDeclaredValue">The declaration of the total value of the inventory in the shipment..</param>
-        public PartneredLtlDataInput(Contact contact = default(Contact), long? boxCount = default(long?), SellerFreightClass? sellerFreightClass = default(SellerFreightClass?), DateTime? freightReadyDate = default(DateTime?), PalletList palletList = default(PalletList), Weight totalWeight = default(Weight), Amount sellerDeclaredValue = default(Amount))
+        public PartneredLtlDataInput(Contact contact = default(Contact), long? boxCount = default(long?), SellerFreightClass? sellerFreightClass = default(SellerFreightClass?), string freightReadyDate = default(string), PalletList palletList = default(PalletList), Weight totalWeight = default(Weight), Amount sellerDeclaredValue = default(Amount))
         {
             this.Contact = contact;
             this.BoxCount = boxCount;
@@ -69,7 +69,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// </summary>
         /// <value>The date that the shipment will be ready to be picked up by the carrier.</value>
         [DataMember(Name = "FreightReadyDate", EmitDefaultValue = false)]
-        public DateTime? FreightReadyDate { get; set; }
+        public string FreightReadyDate { get; set; }
 
         /// <summary>
         /// Gets or Sets PalletList
