@@ -58,7 +58,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// <param name="isBillOfLadingAvailable">Indicates whether the bill of lading for the shipment is available. (required).</param>
         /// <param name="partneredEstimate">The estimated shipping cost using an Amazon-partnered carrier..</param>
         /// <param name="carrierName">The carrier for the inbound shipment. (required).</param>
-        public PartneredLtlDataOutput(Contact contact = default(Contact), long? boxCount = default(long?), String sellerFreightClass = default(String?), string freightReadyDate = default(string), PalletList palletList = default(PalletList), Weight totalWeight = default(Weight), Amount sellerDeclaredValue = default(Amount), Amount amazonCalculatedValue = default(Amount), string previewPickupDate = default(string), DateTime? previewDeliveryDate = default(DateTime?), string previewFreightClass = default(string), string amazonReferenceId = default(string), bool? isBillOfLadingAvailable = default(bool?), PartneredEstimate partneredEstimate = default(PartneredEstimate), string carrierName = default(string))
+        public PartneredLtlDataOutput(Contact contact = default(Contact), long? boxCount = default(long?), String sellerFreightClass = default(String?), string freightReadyDate = default(string), PalletList palletList = default(PalletList), Weight totalWeight = default(Weight), Amount sellerDeclaredValue = default(Amount), Amount amazonCalculatedValue = default(Amount), string previewPickupDate = default(string), string previewDeliveryDate = default(string), string previewFreightClass = default(string), string amazonReferenceId = default(string), bool? isBillOfLadingAvailable = default(bool?), PartneredEstimate partneredEstimate = default(PartneredEstimate), string carrierName = default(string))
         {
             // to ensure "contact" is required (not null)
             if (contact == null)
@@ -226,7 +226,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         /// </summary>
         /// <value>The estimated date that the shipment will be delivered to an Amazon fulfillment center, in YYYY-MM-DD format.</value>
         [DataMember(Name = "PreviewDeliveryDate", EmitDefaultValue = false)]
-        public DateTime? PreviewDeliveryDate { get; set; }
+        public string PreviewDeliveryDate { get; set; }
 
 
         /// <summary>
