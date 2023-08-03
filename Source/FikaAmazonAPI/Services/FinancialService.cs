@@ -65,15 +65,35 @@ namespace FikaAmazonAPI.Services
 
             var list = new List<FinancialEvents>();
             list.Add(response.Payload.FinancialEvents);
-
+            int retriesCount = 0;
             while (!string.IsNullOrEmpty(nextToken))
             {
-                var data = await ListFinancialEventsByGroupIdByNextTokenAsync(eventGroupId, nextToken, cancellationToken);
-                if (data.Payload != null && data.Payload.FinancialEvents != null)
+                try
                 {
-                    list.Add(data.Payload.FinancialEvents);
+                    var data = await ListFinancialEventsByGroupIdByNextTokenAsync(eventGroupId, nextToken, cancellationToken);
+                    if (data.Payload != null && data.Payload.FinancialEvents != null)
+                    {
+                        list.Add(data.Payload.FinancialEvents);
+                    }
+                    nextToken = data.Payload.NextToken;
+                    retriesCount = 0;
                 }
-                nextToken = data.Payload.NextToken;
+                catch (System.Exception ex)
+                {
+                    if (ex.Message == "$errorResponse.Message")
+                    {
+                        retriesCount++;
+                        Thread.Sleep(2000);
+                        if (retriesCount < 100)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
             }
 
             return list;
