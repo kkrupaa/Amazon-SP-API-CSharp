@@ -78,14 +78,19 @@ namespace FikaAmazonAPI.Services
                     }
                 };
 
+                if (Timeout.HasValue)
+                {
+                    options.MaxTimeout = Timeout.Value;
+                }
+
                 RequestClient = new RestClient(options);
             }
 
             RequestClient.UseNewtonsoftJson();
-            if (Timeout.HasValue)
-            {
-                RequestClient.Options.MaxTimeout = Timeout.Value;
-            }
+            //if (Timeout.HasValue)
+            //{
+            //    RequestClient.Options.MaxTimeout = Timeout.Value;
+            //}
             Request = new RestRequest(url, method);
         }
 
