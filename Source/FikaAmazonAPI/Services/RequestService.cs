@@ -83,15 +83,18 @@ namespace FikaAmazonAPI.Services
                     options.MaxTimeout = Timeout.Value;
                 }
 
-                RequestClient = new RestClient(options);
+                RequestClient = new RestClient(options, 
+                    configureSerialization: s => s.UseNewtonsoftJson() /*s.UseSerializer(() => new CustomSerializer())*/
+                    );
             }
 
-            RequestClient.UseNewtonsoftJson();
+            //RequestClient.UseNewtonsoftJson();
             //if (Timeout.HasValue)
             //{
             //    RequestClient.Options.MaxTimeout = Timeout.Value;
             //}
             Request = new RestRequest(url, method);
+            
         }
 
         protected async Task CreateAuthorizedRequestAsync(string url, RestSharp.Method method, List<KeyValuePair<string, string>> queryParameters = null, object postJsonObj = null, TokenDataType tokenDataType = TokenDataType.Normal, object parameter = null, CancellationToken cancellationToken = default)
