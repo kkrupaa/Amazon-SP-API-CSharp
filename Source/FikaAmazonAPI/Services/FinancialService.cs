@@ -54,11 +54,11 @@ namespace FikaAmazonAPI.Services
         }
 
 
-        public List<FinancialEvents> ListFinancialEventsByGroupId(string eventGroupId) =>
-                Task.Run(() => ListFinancialEventsByGroupIdAsync(eventGroupId)).ConfigureAwait(false).GetAwaiter().GetResult();
-        public async Task<List<FinancialEvents>> ListFinancialEventsByGroupIdAsync(string eventGroupId, CancellationToken cancellationToken = default)
+        public List<FinancialEvents> ListFinancialEventsByGroupId(ParameterListFinancialEventsByGroupId parameterListFinancialEventsByGroupId) =>
+                Task.Run(() => ListFinancialEventsByGroupIdAsync(parameterListFinancialEventsByGroupId)).ConfigureAwait(false).GetAwaiter().GetResult();
+        public async Task<List<FinancialEvents>> ListFinancialEventsByGroupIdAsync(ParameterListFinancialEventsByGroupId parameterListFinancialEventsByGroupId, CancellationToken cancellationToken = default)
         {
-            await CreateAuthorizedRequestAsync(FinanceApiUrls.ListFinancialEventsByGroupId(eventGroupId), RestSharp.Method.Get, cancellationToken: cancellationToken);
+            await CreateAuthorizedRequestAsync(FinanceApiUrls.ListFinancialEventsByGroupId(parameterListFinancialEventsByGroupId.GroupId), RestSharp.Method.Get, cancellationToken: cancellationToken);
             var response = await ExecuteRequestAsync<ListFinancialEventsResponse>(RateLimitType.Financial_ListFinancialEventsByGroupId, cancellationToken);
 
             var nextToken = response.Payload.NextToken;
@@ -70,7 +70,7 @@ namespace FikaAmazonAPI.Services
             {
                 try
                 {
-                    var data = await ListFinancialEventsByGroupIdByNextTokenAsync(eventGroupId, nextToken, cancellationToken);
+                    var data = await ListFinancialEventsByGroupIdByNextTokenAsync(parameterListFinancialEventsByGroupId.GroupId, nextToken, cancellationToken);
                     if (data.Payload != null && data.Payload.FinancialEvents != null)
                     {
                         list.Add(data.Payload.FinancialEvents);
