@@ -58,7 +58,11 @@ namespace FikaAmazonAPI.Services
                 Task.Run(() => ListFinancialEventsByGroupIdAsync(parameterListFinancialEventsByGroupId)).ConfigureAwait(false).GetAwaiter().GetResult();
         public async Task<List<FinancialEvents>> ListFinancialEventsByGroupIdAsync(ParameterListFinancialEventsByGroupId parameterListFinancialEventsByGroupId, CancellationToken cancellationToken = default)
         {
-            await CreateAuthorizedRequestAsync(FinanceApiUrls.ListFinancialEventsByGroupId(parameterListFinancialEventsByGroupId.GroupId), RestSharp.Method.Get, cancellationToken: cancellationToken);
+            List<KeyValuePair<string, string>> queryParameters = new List<KeyValuePair<string, string>>();
+            queryParameters.Add(new KeyValuePair<string, string>("PostedAfter", parameterListFinancialEventsByGroupId.PostedAfter?.ToString("yyyy-MM-dd")));
+            queryParameters.Add(new KeyValuePair<string, string>("PostedBefore", parameterListFinancialEventsByGroupId.PostedBefore?.ToString("yyyy-MM-dd")));
+
+            await CreateAuthorizedRequestAsync(FinanceApiUrls.ListFinancialEventsByGroupId(parameterListFinancialEventsByGroupId.GroupId), RestSharp.Method.Get, queryParameters, cancellationToken: cancellationToken);
             var response = await ExecuteRequestAsync<ListFinancialEventsResponse>(RateLimitType.Financial_ListFinancialEventsByGroupId, cancellationToken);
 
             var nextToken = response.Payload.NextToken;
