@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using static FikaAmazonAPI.Utils.Constants;
+using FikaAmazonAPI.Utils;
 
 namespace FikaAmazonAPI.SampleCode
 {
@@ -22,7 +23,7 @@ namespace FikaAmazonAPI.SampleCode
 
             AmazonConnection amazonConnection = new AmazonConnection(new AmazonCredential()
             {
-                AccessKey = config.GetSection("FikaAmazonAPI:AccessKey").Value,
+				AccessKey = config.GetSection("FikaAmazonAPI:AccessKey").Value,
                 SecretKey = config.GetSection("FikaAmazonAPI:SecretKey").Value,
                 RoleArn = config.GetSection("FikaAmazonAPI:RoleArn").Value,
                 ClientId = config.GetSection("FikaAmazonAPI:ClientId").Value,
@@ -31,8 +32,20 @@ namespace FikaAmazonAPI.SampleCode
                 MarketPlaceID = config.GetSection("FikaAmazonAPI:MarketPlaceID").Value,
                 SellerID = config.GetSection("FikaAmazonAPI:SellerId").Value,
                 IsDebugMode = true
-            });
-            
+
+				
+			});
+
+			VendorShipmentsSample vendorShipmentsSample = new VendorShipmentsSample(amazonConnection);
+
+			var result = await vendorShipmentsSample.GetShipmentDetails(DateTime.Parse("2021-01-01"), null);
+
+			VendorTransactionsSample vendorTransactions = new VendorTransactionsSample(amazonConnection);
+
+            var transactionResult = await vendorTransactions.GetTransaction(""); 
+
+
+			/*
             AmazonConnection amazonConnectionUsingAProxy = new AmazonConnection(new AmazonCredential()
             {
                 AccessKey = config.GetSection("FikaAmazonAPI:AccessKey").Value,
@@ -147,9 +160,9 @@ namespace FikaAmazonAPI.SampleCode
                     sellerId = amazonConnection.GetCurrentSellerID
                 });
 
+            */
 
-
-            Console.ReadLine();
+			Console.ReadLine();
 
         }
 

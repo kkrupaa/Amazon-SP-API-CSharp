@@ -190,5 +190,11 @@
         VendorOrdersV1_SubmitAcknowledgement,
         VendorOrdersV1_GetPurchaseOrdersStatus,
 
-    }
+		VendorTransactionStatus_GetTransaction,
+
+		VendorShipmentsV1_GetShipmentDetails,
+
+		
+
+	}
 }
