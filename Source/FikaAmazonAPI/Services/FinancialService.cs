@@ -1,7 +1,11 @@
-﻿using FikaAmazonAPI.AmazonSpApiSDK.Models.Finances;
+﻿using Amazon.Auth.AccessControlPolicy;
+using FikaAmazonAPI.AmazonSpApiSDK.Models.Finances;
+using FikaAmazonAPI.ConstructFeed.Messages;
 using FikaAmazonAPI.Parameter.Finance;
 using FikaAmazonAPI.Utils;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -84,11 +88,24 @@ namespace FikaAmazonAPI.Services
                 }
                 catch (System.Exception ex)
                 {
-                    if (ex.Message == "$errorResponse.Message")
+                    /*TextWriter writer = null;
+                    try
+                    {
+                        var contentsToWriteToFile = JsonConvert.SerializeObject(ex.Message);
+                        writer = new StreamWriter(@"c:\temp\error.txt", false);
+                        writer.Write(contentsToWriteToFile);
+                    }
+                    finally
+                    {
+                        if (writer != null)
+                            writer.Close();
+                    }*/
+
+                    if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
                     {
                         retriesCount++;
-                        Thread.Sleep(2000);
-                        if (retriesCount < 100)
+                        Thread.Sleep(3000);
+                        if (retriesCount < 10)
                         {
                             continue;
                         }
