@@ -91,7 +91,7 @@ namespace FikaAmazonAPI.Services
                     /*TextWriter writer = null;
                     try
                     {
-                        var contentsToWriteToFile = JsonConvert.SerializeObject(ex.Message);
+                        var contentsToWriteToFile = JsonConvert.SerializeObject("test");
                         writer = new StreamWriter(@"c:\temp\error.txt", false);
                         writer.Write(contentsToWriteToFile);
                     }
@@ -101,11 +101,11 @@ namespace FikaAmazonAPI.Services
                             writer.Close();
                     }*/
 
-                    if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
+                    //if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
                     {
                         retriesCount++;
                         Thread.Sleep(3000);
-                        if (retriesCount < 10)
+                        if (retriesCount < 5)
                         {
                             continue;
                         }
