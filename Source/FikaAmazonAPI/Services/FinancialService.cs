@@ -67,13 +67,40 @@ namespace FikaAmazonAPI.Services
             queryParameters.Add(new KeyValuePair<string, string>("PostedBefore", parameterListFinancialEventsByGroupId.PostedBefore?.ToString("yyyy-MM-dd")));
 
             await CreateAuthorizedRequestAsync(FinanceApiUrls.ListFinancialEventsByGroupId(parameterListFinancialEventsByGroupId.GroupId), RestSharp.Method.Get, queryParameters, cancellationToken: cancellationToken);
-            var response = await ExecuteRequestAsync<ListFinancialEventsResponse>(RateLimitType.Financial_ListFinancialEventsByGroupId, cancellationToken);
+            ListFinancialEventsResponse response = null;
 
+            bool keepTrying = true;
+            int retriesCount = 0;
+            while (keepTrying)
+            {
+                try
+                {
+                    response = await ExecuteRequestAsync<ListFinancialEventsResponse>(RateLimitType.Financial_ListFinancialEventsByGroupId, cancellationToken);
+                    keepTrying = false;
+                }
+                catch (System.Exception ex)
+                {
+                    //if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
+                    {
+                        retriesCount++;
+                        Thread.Sleep(3000);
+                        if (retriesCount < 5)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+            }
+            
             var nextToken = response.Payload.NextToken;
 
             var list = new List<FinancialEvents>();
             list.Add(response.Payload.FinancialEvents);
-            int retriesCount = 0;
+            retriesCount = 0;
             while (!string.IsNullOrEmpty(nextToken))
             {
                 try
@@ -88,21 +115,10 @@ namespace FikaAmazonAPI.Services
                 }
                 catch (System.Exception ex)
                 {
-                    /*TextWriter writer = null;
-                    try
-                    {
-                        var contentsToWriteToFile = JsonConvert.SerializeObject("test");
-                        writer = new StreamWriter(@"c:\temp\error.txt", false);
-                        writer.Write(contentsToWriteToFile);
-                    }
-                    finally
-                    {
-                        if (writer != null)
-                            writer.Close();
-                    }*/
 
-                    //if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
+                    if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
                     {
+                        
                         retriesCount++;
                         Thread.Sleep(3000);
                         if (retriesCount < 5)
