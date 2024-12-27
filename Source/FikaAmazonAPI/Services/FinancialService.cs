@@ -83,8 +83,8 @@ namespace FikaAmazonAPI.Services
                     //if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
                     {
                         retriesCount++;
-                        Thread.Sleep(3000);
-                        if (retriesCount < 5)
+                        Thread.Sleep(2000 * retriesCount);
+                        if (retriesCount < 20)
                         {
                             continue;
                         }
@@ -120,8 +120,8 @@ namespace FikaAmazonAPI.Services
                     {
                         
                         retriesCount++;
-                        Thread.Sleep(3000);
-                        if (retriesCount < 5)
+                        Thread.Sleep(2000 * retriesCount);
+                        if (retriesCount < 20)
                         {
                             continue;
                         }
