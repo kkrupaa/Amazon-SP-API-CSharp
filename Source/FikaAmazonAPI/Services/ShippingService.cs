@@ -3,23 +3,22 @@ using FikaAmazonAPI.Parameter;
 using FikaAmazonAPI.Utils;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace FikaAmazonAPI.Services
 {
     public class ShippingService : RequestService
     {
-        public ShippingService(AmazonCredential amazonCredential) : base(amazonCredential)
+        public ShippingService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
         {
 
         }
 
-
-
-        public Shipment CreateShipment(CreateShipmentRequest parameterGetPricing) =>
-            Task.Run(() => CreateShipmentAsync(parameterGetPricing)).ConfigureAwait(false).GetAwaiter().GetResult();
-        public async Task<Shipment> CreateShipmentAsync(CreateShipmentRequest parameterGetPricing, CancellationToken cancellationToken = default)
+        public Shipment CreateShipment(CreateShipmentRequest parameterShimpmentRequest) =>
+            Task.Run(() => CreateShipmentAsync(parameterShimpmentRequest)).ConfigureAwait(false).GetAwaiter().GetResult();
+        public async Task<Shipment> CreateShipmentAsync(CreateShipmentRequest parameterShipmentRequest, CancellationToken cancellationToken = default)
         {
-            await CreateAuthorizedRequestAsync(ShippingApiUrls.CreateShipment, RestSharp.Method.Post, postJsonObj: parameterGetPricing, cancellationToken: cancellationToken);
+            await CreateAuthorizedRequestAsync(ShippingApiUrls.CreateShipment, RestSharp.Method.Post, postJsonObj: parameterShipmentRequest, cancellationToken: cancellationToken);
             var response = await ExecuteRequestAsync<GetShipmentResponse>(RateLimitType.Shipping_CreateShipment, cancellationToken);
             if (response != null && response.Payload != null)
                 return response.Payload;
@@ -47,7 +46,6 @@ namespace FikaAmazonAPI.Services
                 return true;
             return false;
         }
-
 
         public PurchaseLabelsResult PurchaseLabels(string shipmentId, PurchaseLabelsRequest purchaseLabelsRequest) =>
             Task.Run(() => PurchaseLabelsAsync(shipmentId, purchaseLabelsRequest)).ConfigureAwait(false).GetAwaiter().GetResult();

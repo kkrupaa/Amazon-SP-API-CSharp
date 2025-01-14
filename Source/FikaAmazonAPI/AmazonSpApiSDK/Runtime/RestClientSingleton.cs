@@ -39,7 +39,8 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Runtime
             {
                 BaseUrl = baseUri,
             };
-            return new RestClient(_httpClient, restClientOption, configureSerialization: s => s.UseNewtonsoftJson() /*s.UseSerializer(() => new CustomSerializer())*/);
+            return new RestClient(_httpClient, restClientOption,
+                configureSerialization: s => s.UseNewtonsoftJson());
         }
     }
 }

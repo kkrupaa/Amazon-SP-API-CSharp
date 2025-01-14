@@ -3,13 +3,14 @@ using FikaAmazonAPI.Utils;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace FikaAmazonAPI.Services
 {
     public class MessagingService : RequestService
     {
 
-        public MessagingService(AmazonCredential amazonCredential) : base(amazonCredential)
+        public MessagingService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
         {
 
         }
@@ -194,7 +195,18 @@ namespace FikaAmazonAPI.Services
             return false;
         }
 
+        public bool SendInvoice(string amazonOrderId, InvoiceRequest invoiceRequest) =>
+            Task.Run(() => SendInvoiceAsync(amazonOrderId, invoiceRequest)).ConfigureAwait(false).GetAwaiter().GetResult();
+        public async Task<bool> SendInvoiceAsync(string amazonOrderId, InvoiceRequest invoiceRequest, CancellationToken cancellationToken = default)
+        {
+            List<KeyValuePair<string, string>> queryParameters = new List<KeyValuePair<string, string>>();
+            queryParameters.Add(new KeyValuePair<string, string>("marketplaceIds", AmazonCredential.MarketPlace.ID));
+            await CreateAuthorizedRequestAsync(MessaginApiUrls.SendInvoice(amazonOrderId), RestSharp.Method.Post, queryParameters, postJsonObj: invoiceRequest, cancellationToken: cancellationToken);
 
-
+            var response = await ExecuteRequestAsync<InvoiceResponse>(RateLimitType.Messaging_CreateUnexpectedProblem, cancellationToken);
+            if (response != null)
+                return true;
+            return false;
+        }
     }
 }

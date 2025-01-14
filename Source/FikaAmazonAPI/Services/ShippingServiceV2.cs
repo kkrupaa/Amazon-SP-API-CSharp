@@ -3,12 +3,13 @@ using FikaAmazonAPI.Parameter;
 using FikaAmazonAPI.Utils;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace FikaAmazonAPI.Services
 {
     public class ShippingServiceV2 : RequestService
     {
-        public ShippingServiceV2(AmazonCredential amazonCredential) : base(amazonCredential)
+        public ShippingServiceV2(AmazonCredential amazonCredential,ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
         {
 
         }
@@ -17,7 +18,7 @@ namespace FikaAmazonAPI.Services
             Task.Run(() => CancelShipmentAsync(shipmentId)).ConfigureAwait(false).GetAwaiter().GetResult();
         public async Task<bool> CancelShipmentAsync(string shipmentId, CancellationToken cancellationToken = default)
         {
-            await CreateAuthorizedRequestAsync(ShippingApiV2Urls.CancelShipment(shipmentId), RestSharp.Method.Post, cancellationToken: cancellationToken);
+            await CreateAuthorizedRequestAsync(ShippingApiV2Urls.CancelShipment(shipmentId), RestSharp.Method.Put, cancellationToken: cancellationToken);
             var response = await ExecuteRequestAsync<CancelShipmentResponse>(RateLimitType.ShippingV2_CancelShipment, cancellationToken);
             if (response != null)
                 return true;
@@ -42,6 +43,17 @@ namespace FikaAmazonAPI.Services
         {
             await CreateAuthorizedRequestAsync(ShippingApiV2Urls.GetRates, RestSharp.Method.Post, postJsonObj: getRatesRequest, cancellationToken: cancellationToken);
             var response = await ExecuteRequestAsync<GetRatesResponse>(RateLimitType.ShippingV2_GetRates, cancellationToken);
+            if (response != null && response.Payload != null)
+                return response.Payload;
+            return null;
+        }
+
+        public GetAdditionalInputsResult GetAdditionalInputs(GetAdditionalInputsRequest getRatesRequest) =>
+            Task.Run(() => GetAdditionalInputsAsync(getRatesRequest)).ConfigureAwait(false).GetAwaiter().GetResult();
+        public async Task<GetAdditionalInputsResult> GetAdditionalInputsAsync(GetAdditionalInputsRequest getRatesRequest, CancellationToken cancellationToken = default)
+        {
+            await CreateAuthorizedRequestAsync(ShippingApiV2Urls.GetAdditionalInputs(getRatesRequest.RequestToken, getRatesRequest.RateId), RestSharp.Method.Get, cancellationToken: cancellationToken);
+            var response = await ExecuteRequestAsync<GetAdditionalInputsResponse>(RateLimitType.ShippingV2_GetAdditionalInputs, cancellationToken);
             if (response != null && response.Payload != null)
                 return response.Payload;
             return null;

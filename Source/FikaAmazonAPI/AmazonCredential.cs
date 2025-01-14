@@ -1,6 +1,5 @@
 ﻿using FikaAmazonAPI.AmazonSpApiSDK.Models.Token;
 using FikaAmazonAPI.Utils;
-using System.Collections.Generic;
 using static FikaAmazonAPI.AmazonSpApiSDK.Models.Token.CacheTokenData;
 using static FikaAmazonAPI.Utils.Constants;
 
@@ -24,7 +23,7 @@ namespace FikaAmazonAPI
         public string MarketPlaceID { get; set; }
         public string SellerID { get; set; }
         public string ProxyAddress { get; set; }
-
+        public static bool DebugMode { get; set; }
         public AmazonCredential()
         {
             CacheTokenData = new CacheTokenData();
@@ -53,11 +52,10 @@ namespace FikaAmazonAPI
         {
             return CacheTokenData.GetAWSAuthenticationTokenData();
         }
+
         public void SetAWSAuthenticationTokenData(AWSAuthenticationTokenData tokenData)
         {
             CacheTokenData.SetAWSAuthenticationTokenData(tokenData);
         }
-        internal Dictionary<RateLimitType, RateLimits> UsagePlansTimings { get; set; } = RateLimitsDefinitions.RateLimitsTime();
-
     }
 }

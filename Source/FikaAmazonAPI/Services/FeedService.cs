@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using static FikaAmazonAPI.Utils.Constants;
 
 namespace FikaAmazonAPI.Services
@@ -18,12 +20,10 @@ namespace FikaAmazonAPI.Services
     public class FeedService : RequestService
     {
 
-        public FeedService(AmazonCredential amazonCredential) : base(amazonCredential)
+        public FeedService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
         {
 
         }
-
-
 
         public IList<Feed> GetFeeds(ParameterGetFeed parameterGetFeed) =>
             Task.Run(() => GetFeedsAsync(parameterGetFeed)).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -50,7 +50,6 @@ namespace FikaAmazonAPI.Services
             return list;
         }
 
-
         public GetFeedsResponseV00 GetFeedsByNextToken(string nextToken) =>
             Task.Run(() => GetFeedsByNextTokenAsync(nextToken)).ConfigureAwait(false).GetAwaiter().GetResult();
 
@@ -64,7 +63,6 @@ namespace FikaAmazonAPI.Services
             var response = await ExecuteRequestAsync<GetFeedsResponseV00>(RateLimitType.Feed_GetFeeds, cancellationToken);
             return response;
         }
-
 
         public CreateFeedResult CreateFeed(CreateFeedSpecification createFeedSpecification) =>
             Task.Run(() => CreateFeedAsync(createFeedSpecification)).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -184,6 +182,27 @@ namespace FikaAmazonAPI.Services
             return processingReport;
         }
 
+        public async Task<string> GetJsonFeedDocumentProcessingReportAsync(FeedDocument feedDocument, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            try
+            {
+                Stream stream = await GetStreamFromUrlAsync(feedDocument.Url, cancellationToken);
+                if (feedDocument.CompressionAlgorithm.HasValue && feedDocument.CompressionAlgorithm.Value == FeedDocument.CompressionAlgorithmEnum.GZIP)
+                {
+                    stream = new GZipStream(stream, CompressionMode.Decompress);
+                }
+
+                using var reader = new StreamReader(stream);
+                string jsonContent = await reader.ReadToEndAsync();
+
+                return jsonContent;
+            }
+            catch (AmazonProcessingReportDeserializeException)
+            {
+                throw;
+            }
+        }
+
         public CreateFeedDocumentResult CreateFeedDocument(ContentType contentType) =>
             Task.Run(() => CreateFeedDocumentAsync(contentType)).ConfigureAwait(false).GetAwaiter().GetResult();
 
@@ -242,7 +261,6 @@ namespace FikaAmazonAPI.Services
             return feed.FeedId;
         }
 
-
         private static async Task<Stream> GetStreamFromUrlAsync(string url, CancellationToken cancellationToken = default)
         {
             byte[] imageData = null;
@@ -284,7 +302,6 @@ namespace FikaAmazonAPI.Services
                     bytes = System.Text.Encoding.UTF8.GetBytes(contentOrFilePath);
                 }
             }
-
 
             request.ContentType = LinqHelper.GetEnumMemberValue(contentType);
             request.ContentLength = bytes.Length;

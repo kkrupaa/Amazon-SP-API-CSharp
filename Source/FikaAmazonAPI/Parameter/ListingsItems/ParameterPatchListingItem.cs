@@ -26,11 +26,11 @@ namespace FikaAmazonAPI.Parameter.ListingItem
             }
             if (this.listingsItemPatchRequest == null)
             {
-                throw new InvalidDataException("ListingsItemPutRequest is a required property for ParameterPatchListingItem and cannot be null");
+                throw new InvalidDataException("ListingsItemPatchRequest is a required property for ParameterPatchListingItem and cannot be null");
             }
             if (string.IsNullOrWhiteSpace(this.listingsItemPatchRequest.productType))
             {
-                throw new InvalidDataException("ListingsItemPutRequest is a required property for ParameterPatchListingItem and cannot be null");
+                throw new InvalidDataException("ListingsItemPatchRequest.productType is a required property for ParameterPatchListingItem and cannot be null");
             }
             if (this.listingsItemPatchRequest.patches == null || !this.listingsItemPatchRequest.patches.Any())
             {

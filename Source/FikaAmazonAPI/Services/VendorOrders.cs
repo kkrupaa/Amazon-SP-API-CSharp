@@ -1,19 +1,20 @@
 ﻿using FikaAmazonAPI.AmazonSpApiSDK.Models.VendorOrders;
+using FikaAmazonAPI.AmazonSpApiSDK.Models.VendorTransactions;
 using FikaAmazonAPI.Parameter.VendorOrders;
 using FikaAmazonAPI.Utils;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace FikaAmazonAPI.Services
 {
     public class VendorOrderService : RequestService
     {
-        public VendorOrderService(AmazonCredential amazonCredential) : base(amazonCredential)
+        public VendorOrderService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
         {
 
         }
-
 
         public List<Order> GetPurchaseOrders(ParameterVendorOrdersGetPurchaseOrders searchOrderList) =>
             Task.Run(() => GetPurchaseOrdersAsync(searchOrderList)).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -70,6 +71,5 @@ namespace FikaAmazonAPI.Services
                 return response.Payload;
             return null;
         }
-
     }
 }
