@@ -464,12 +464,6 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Services
 			public static string GetTransaction(string transactionId) => $"{_resourceBaseUrl}/transactions/{transactionId}";
         }
 
-		protected class VendorTransactionStatusApiUrls
-		{
-			private readonly static string _resourceBaseUrl = "/vendor/transactions/v1";
-			public static string GetTransaction(string transactionId) => $"{_resourceBaseUrl}/transactions/{transactionId}";
-		}
-
 		protected class VendorShipmentsApiUrls
         {
             private readonly static string _resourceBaseUrl = "/vendor/shipping/v1";

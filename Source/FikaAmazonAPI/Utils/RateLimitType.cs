@@ -238,5 +238,7 @@
 
 		VendorTransactionStatus_GetTransaction,
 
+        VendorShipmentsV1_GetShipmentDetails
+
     }
 }

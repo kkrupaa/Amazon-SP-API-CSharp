@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using System.Threading;
 using FikaAmazonAPI.Parameter.VendorShipments;
 using FikaAmazonAPI.AmazonSpApiSDK.Models.VendorShipments;
+using Microsoft.Extensions.Logging;
 
 namespace FikaAmazonAPI.Services
 {
 	public class VendorShipmentService : RequestService
 	{
-		public VendorShipmentService(AmazonCredential amazonCredential) : base(amazonCredential)
+		public VendorShipmentService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
 		{
 
 		}
