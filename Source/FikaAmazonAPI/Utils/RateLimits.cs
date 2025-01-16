@@ -103,7 +103,7 @@ namespace FikaAmazonAPI.Utils
             lock (_locker)
             {
                 var ratePeriodMilliseconds = GetRatePeriodMs();
-                var requestsToReplenish = ratePeriodMilliseconds == 0 ? 0 : (DateTime.UtcNow - LastRequestReplenished).Milliseconds / ratePeriodMilliseconds;
+                var requestsToReplenish = ratePeriodMilliseconds == 0 ? 0 : Convert.ToInt32((DateTime.UtcNow - LastRequestReplenished).TotalMilliseconds) / ratePeriodMilliseconds;
                 WriteDebug($"{requestsToReplenish} tokens to replenish since {LastRequestReplenished}", isDebug);
                 if (requestsToReplenish == 0 || RequestsUsed == 0)
                 {
