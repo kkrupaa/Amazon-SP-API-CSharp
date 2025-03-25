@@ -337,7 +337,8 @@ namespace FikaAmazonAPI.Utils
             JAN,
             MINSAN,
             SKU,
-            UPC
+            UPC,
+            FNSKU
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -622,7 +623,9 @@ namespace FikaAmazonAPI.Utils
             Issues,
             Offers,
             FulfillmentAvailability,
-            Procurement
+            Procurement,
+            Relationships,
+            ProductTypes
         }
 
         [JsonConverter(typeof(StringEnumConverter))]

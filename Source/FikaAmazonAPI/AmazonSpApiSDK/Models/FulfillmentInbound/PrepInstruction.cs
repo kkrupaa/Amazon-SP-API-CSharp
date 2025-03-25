@@ -115,7 +115,7 @@ namespace FikaAmazonAPI.AmazonSpApiSDK.Models.FulfillmentInbound
         NoPrep = 15,
 
         /// <summary>
-        /// Enum NoPrep for value: ShipsInProductPackaging
+        /// Enum ShipsInProductPackaging for value: ShipsInProductPackaging
         /// </summary>
         [EnumMember(Value = "ShipsInProductPackaging")]
         ShipsInProductPackaging = 16

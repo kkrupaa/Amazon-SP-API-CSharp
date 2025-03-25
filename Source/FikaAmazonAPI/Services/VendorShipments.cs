@@ -14,7 +14,7 @@ namespace FikaAmazonAPI.Services
 {
 	public class VendorShipmentService : RequestService
 	{
-		public VendorShipmentService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory, IRateLimitingHandler rateLimitingHandler = null) : base(amazonCredential, loggerFactory, rateLimitingHandler)
+		public VendorShipmentService(AmazonCredential amazonCredential, ILoggerFactory? loggerFactory/*, IRateLimitingHandler rateLimitingHandler = null*/) : base(amazonCredential, loggerFactory/*, rateLimitingHandler*/)
 		{
 
 		}
