@@ -11,8 +11,12 @@ namespace FikaAmazonAPI.ConstructFeed.JsonMessages
         public int? quantity { get; set; }
         public int? lead_time_to_ship_max_days { get; set; }
         public string currency { get; set; }
+        public string audience { get; set; }
         public IList<PriceData> our_price { get; set; }
         public IList<PriceData> minimum_seller_allowed_price { get; set; }
         public IList<PriceData> maximum_seller_allowed_price { get; set; }
+        public IList<PriceData> map_price { get; set; }
+        public IList<PriceData> discounted_price { get; set; }
+        public IList<PriceData> quantity_discount_plan { get; set; }
     }
 }

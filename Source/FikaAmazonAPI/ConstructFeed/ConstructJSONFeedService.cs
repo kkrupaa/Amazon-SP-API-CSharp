@@ -41,12 +41,36 @@ namespace FikaAmazonAPI.ConstructFeed
                         new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.MinimumSellerAllowedPrice.Value }  } }
                     };
                 }
+                //else
+                //{
+                //    patcheValueData.minimum_seller_allowed_price = null;
+                //}
 
                 if (itm.MaximumSellerAllowedPrice != null)
                 {
                     patcheValueData.maximum_seller_allowed_price = new List<PriceData>()
                     {
                         new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.MaximumSellerAllowedPrice.Value }  } }
+                    };
+                }
+                //else
+                //{
+                //    patcheValueData.maximum_seller_allowed_price = null;
+                //}
+
+                if (itm.MAP != null)
+                { 
+                    patcheValueData.map_price = new List<PriceData>()
+                    {
+                        new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.MAP.Value }  } }
+                    };
+                }
+
+                if (itm.Sale != null)
+                {
+                    patcheValueData.discounted_price =  new List<PriceData>()
+                    {
+                        new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.Sale.SalePrice.Value, start_at = itm.Sale.StartDate, end_at = itm.Sale.EndDate }  } }
                     };
                 }
 
@@ -65,6 +89,83 @@ namespace FikaAmazonAPI.ConstructFeed
                         }
                     }
                 };
+
+                if (itm.BusinessPrice != null)
+                {
+                    patcheValueData = new PatcheValueData()
+                    {
+                        currency = itm.StandardPrice.currency,
+                        audience = "B2B",
+                        our_price = new List<PriceData>()
+                        {
+                            new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.BusinessPrice.Value }  } }
+                        }
+                    };
+
+                    if (itm.QuantityPrice != null)
+                    {
+                        patcheValueData.quantity_discount_plan = new List<PriceData>()
+                        {
+                            new PriceData(){ schedule = new List<SchedulePriceData>()
+                                { new SchedulePriceData()
+                                    {
+                                        discount_type = "fixed",
+                                        levels = new List<ShedulePriceLevel>()
+                                        {
+                                            new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound1, value=itm.QuantityPrice.QuantityPrice1 },
+                                            //new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound2, value=itm.QuantityPrice.QuantityPrice2 },
+                                            //new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound3, value=itm.QuantityPrice.QuantityPrice3 },
+                                            //new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound4, value=itm.QuantityPrice.QuantityPrice4 },
+                                            //new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound5, value=itm.QuantityPrice.QuantityPrice5 }
+                                        }
+                                    }
+                                }
+                            }
+                        };
+
+                        if (itm.QuantityPrice.QuantityLowerBound2 != null)
+                        {
+                            patcheValueData.quantity_discount_plan[0].schedule[0].levels.Add
+                                (
+                                    new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound2, value = itm.QuantityPrice.QuantityPrice2 }
+                                );
+                        }
+
+                        if (itm.QuantityPrice.QuantityLowerBound3 != null)
+                        {
+                            patcheValueData.quantity_discount_plan[0].schedule[0].levels.Add
+                                (
+                                    new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound3, value = itm.QuantityPrice.QuantityPrice3 }
+                                );
+                        }
+
+                        if (itm.QuantityPrice.QuantityLowerBound4 != null)
+                        {
+                            patcheValueData.quantity_discount_plan[0].schedule[0].levels.Add
+                                (
+                                    new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound4, value = itm.QuantityPrice.QuantityPrice4 }
+                                );
+                        }
+
+                        if (itm.QuantityPrice.QuantityLowerBound5 != null)
+                        {
+                            patcheValueData.quantity_discount_plan[0].schedule[0].levels.Add
+                                (
+                                    new ShedulePriceLevel() { lower_bound = itm.QuantityPrice.QuantityLowerBound5, value = itm.QuantityPrice.QuantityPrice5 }
+                                );
+                        }
+
+                    }
+                    else
+                    {
+                        patcheValueData.quantity_discount_plan = new List<PriceData>();
+                    }
+
+                    msg.patches[0].value.Add(patcheValueData);
+
+                }
+
+                
 
                 jsonMessagesData.messages.Add(msg);
             }
