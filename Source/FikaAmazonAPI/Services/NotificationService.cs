@@ -92,7 +92,18 @@ namespace FikaAmazonAPI.Services
             return null;
         }
 
-        public Subscription GetSubscriptionById(NotificationType notificationType, string subscriptionId) =>
+		public Subscription CreateSubscriptionVer2(ParameterCreateSubscriptionVer2 param) =>
+			Task.Run(() => CreateSubscriptionVer2Async(param)).ConfigureAwait(false).GetAwaiter().GetResult();
+		public async Task<Subscription> CreateSubscriptionVer2Async(ParameterCreateSubscriptionVer2 param, CancellationToken cancellationToken = default)
+		{
+			await CreateAuthorizedRequestAsync(NotificationApiUrls.CreateSubscription(param.notificationType.ToString()), RestSharp.Method.Post, postJsonObj: param, cancellationToken: cancellationToken);
+			var response = await ExecuteRequestAsync<CreateSubscriptionResponse>(RateLimitType.Notifications_CreateSubscription, cancellationToken);
+			if (response != null && response.Payload != null)
+				return response.Payload;
+			return null;
+		}
+
+		public Subscription GetSubscriptionById(NotificationType notificationType, string subscriptionId) =>
             Task.Run(() => GetSubscriptionByIdAsync(notificationType, subscriptionId)).ConfigureAwait(false).GetAwaiter().GetResult();
         public async Task<Subscription> GetSubscriptionByIdAsync(NotificationType notificationType, string subscriptionId, CancellationToken cancellationToken = default)
         {
