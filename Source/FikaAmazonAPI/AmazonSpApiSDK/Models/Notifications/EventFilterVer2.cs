@@ -7,10 +7,10 @@ using System.Text;
 namespace FikaAmazonAPI.AmazonSpApiSDK.Models.Notifications
 {
 	/// <summary>
-	/// Without field MarketplaceIds because in SQS "ORDER_CHANGE" Amazon error is encounter.
+	/// Without field MarketplaceIds & AggregationFilter because in SQS "ORDER_CHANGE" Amazon error is encounter.
 	/// </summary>
 	[DataContract]
-	public class EventFilterVer2 : AggregationFilter
+	public class EventFilterVer2
 	{
 
 		/// <summary>
