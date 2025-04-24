@@ -8,6 +8,8 @@ namespace FikaAmazonAPI.ConstructFeed.Messages
         public string SKU { get; set; }
         public StandardPrice StandardPrice { get; set; }
         public decimal? BusinessPrice { get; set; }
+        [XmlIgnore]
+        public bool IncludeBusinessPriceInFeed { get; set; }
         public QuantityPriceTypes? QuantityPriceType { get; set; }
         [XmlIgnore]
         public bool QuantityPriceTypeSpecified { get { return this.QuantityPriceType != null; } }

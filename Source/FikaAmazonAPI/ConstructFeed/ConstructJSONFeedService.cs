@@ -90,7 +90,7 @@ namespace FikaAmazonAPI.ConstructFeed
                     }
                 };
 
-                if (itm.BusinessPrice != null)
+                if (itm.IncludeBusinessPriceInFeed)
                 {
                     patcheValueData = new PatcheValueData()
                     {
@@ -98,7 +98,7 @@ namespace FikaAmazonAPI.ConstructFeed
                         audience = "B2B",
                         our_price = new List<PriceData>()
                         {
-                            new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.BusinessPrice.Value }  } }
+                            new PriceData(){ schedule = new List<SchedulePriceData>(){ new SchedulePriceData() { value_with_tax= itm.BusinessPrice }  } }
                         }
                     };
 

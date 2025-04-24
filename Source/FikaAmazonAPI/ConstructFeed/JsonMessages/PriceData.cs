@@ -9,7 +9,7 @@ namespace FikaAmazonAPI.ConstructFeed.JsonMessages
     }
     public class SchedulePriceData
     {
-        public decimal value_with_tax { get; set; }
+        public decimal? value_with_tax { get; set; }
         public string start_at { get; set; }
         public string end_at { get; set; }
         public string discount_type { get; set; }
