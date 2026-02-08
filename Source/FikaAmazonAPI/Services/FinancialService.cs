@@ -7,8 +7,10 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+//using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace FikaAmazonAPI.Services
 {
@@ -116,6 +118,18 @@ namespace FikaAmazonAPI.Services
                 }
                 catch (System.Exception ex)
                 {
+
+                    if (ex.Message.Contains("Time to live(TTL) exceeded"))
+                    {
+                        throw;
+                    }
+
+                    if(ex.Message.Contains("Invalid Input"))
+                    {
+                        throw;
+                        //return list; - for tests
+                    }
+
 
                     if (ex.Message == "$errorResponse.Message" || ex.Message.Contains("quota"))
                     {
