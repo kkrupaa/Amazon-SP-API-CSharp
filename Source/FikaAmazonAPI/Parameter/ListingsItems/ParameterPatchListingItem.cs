@@ -1,5 +1,7 @@
 ﻿using FikaAmazonAPI.Search;
 using FikaAmazonAPI.Utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -60,6 +62,7 @@ namespace FikaAmazonAPI.Parameter.ListingItem
 
     public class PatchOperation
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public Op op { get; set; }
         public string path { get; set; }
 
