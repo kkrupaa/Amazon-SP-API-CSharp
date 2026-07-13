@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -31,22 +32,26 @@ namespace FikaAmazonAPI.Parameter.ProductPricing
         //[JsonProperty("headers")]
         //public Dictionary<string, string> Headers { get; set; }
 
-        [JsonProperty("queryParams")]
+        /// <summary>
+        /// Input holder for the per-request parameters. NOT serialized as a "queryParams" object — Amazon's
+        /// getItemOffersBatch expects MarketplaceId / ItemCondition / CustomerType as TOP-LEVEL fields on each
+        /// request (a "queryParams" wrapper is ignored, which made the API report the marketplace as missing).
+        /// The three properties below project those values to the top level.
+        /// </summary>
+        [JsonIgnore]
         public ParameterGetItemOffers QueryParams { get; set; }
 
-        ///// <summary>
-        ///// A marketplace identifier. Specifies the marketplace for which prices are returned.
-        ///// </summary>
-        //[DataMember(Name = "MarketplaceId")]
-        //public string MarketplaceId { get; set; }
+        /// <summary>
+        /// A marketplace identifier. Specifies the marketplace for which prices are returned.
+        /// </summary>
+        [JsonProperty("MarketplaceId")]
+        public string MarketplaceId => QueryParams?.MarketplaceId;
 
-        //[DataMember(Name = "ItemCondition")]
-        //public ItemCondition ItemCondition { get; set; }
+        [JsonProperty("ItemCondition")]
+        public ItemCondition ItemCondition => QueryParams != null ? QueryParams.ItemCondition : default;
 
-        //[DataMember(Name = "CustomerType")]
-        //public CustomerType? CustomerType { get; set; }
-
-        //[JsonIgnore]
-        //public string Asin { get; set; }
+        [JsonProperty("CustomerType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CustomerType? CustomerType => QueryParams?.CustomerType;
     }
 }
