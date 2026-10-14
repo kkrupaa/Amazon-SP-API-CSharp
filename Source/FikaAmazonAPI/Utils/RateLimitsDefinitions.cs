@@ -39,6 +39,7 @@ namespace FikaAmazonAPI.Utils
               { RateLimitType.Financial_ListFinancialEventsByGroupId,     new RateLimits(0.5M, 30) },
               { RateLimitType.Financial_ListFinancialEventsByOrderId,     new RateLimits(0.5M, 30) },
               { RateLimitType.Financial_ListFinancialEvents,              new RateLimits(0.5M, 30) },
+              { RateLimitType.FinancialV20240619_Transactions,            new RateLimits(0.5M, 10) },
 
               { RateLimitType.Feed_GetFeeds,                              new RateLimits(0.0222M, 10) },
               { RateLimitType.Feed_CreateFeed,                            new RateLimits(0.0083M, 15) },
